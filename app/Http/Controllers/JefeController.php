@@ -43,19 +43,30 @@ class JefeController extends Controller
             $porcSelec = '25';
         }
         
-        
         return view('jefes.index', compact('jefe', 'listaAnio', 'anioSelec', 'listaPorc', 'porcSelec'));
     }
 
-    public function buscar(){
-        $anioSelec = app('request')->input('AnioEgreso');
+    public function aleatorios(Request $request){
+        $anioSelec = $request->get('AnioEgreso');
+        $porcSelec = $request->get('PorcentajeM');
 
-        $total = Egresado::where('anio_egreso', $anioSelec)->count();
+        $total = Egresado::where('anio_egreso', $anioSelec)->count(); // 100%
 
-        return back()->with('total' , $total)->with('anioSelec', $anioSelec);
+        $numEgresados = ((int)$porcSelec * (int)$total) / 100;
+
+        $egresadosSelc = Egresado::where('anio_egreso', $anioSelec)
+            ->where('form_hecho', 0)
+            ->orderByRaw('RAND()')
+            ->limit((int)$numEgresados)
+            ->get();
+        
+        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc);
     }
 
     public function enviar(Request $request){
-        return redirect('jefes.index');
+        foreach ($request->NoControl as $egresado) {
+            echo $egresado;
+        }
+        return $request->NoControl;
     }
 }

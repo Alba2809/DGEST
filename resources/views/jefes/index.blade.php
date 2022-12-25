@@ -12,67 +12,70 @@
                     <div class="basis-1/2">
                         <h1 class="text-lg">Carrera: {{$jefe->carrera}}</h1>
                         <h1 class="text-lg mb-10">Jefe de Carrera: {{$jefe->nombre}}</h1>
-                        {!! Form::open(['route' => ['jefe.correo.buscar'], 'method' => 'post']) !!}
+                        
+                        {!! Form::open(['route' => ['jefe.correo.aleatorios'], 'method' => 'post']) !!}
                             <label>
                                 Seleccionar año de egreso:
-                                @if (session('anioSelec'))
-                                    {!! Form::select('AnioEgreso', $listaAnio, session('anioSelec'), ['id' => 'AnioEgreso']) !!}
-                                @else
-                                    {!! Form::select('AnioEgreso', $listaAnio, $anioSelec, ['id' => 'AnioEgreso']) !!}
-                                @endif
+                                {!! Form::select('AnioEgreso', $listaAnio, $anioSelec, ['id' => 'AnioEgreso']) !!}
                             </label>
-                            {!! Form::submit('Buscar Egresados', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
-                        {!! Form::close() !!}
-    
-                        {!! Form::open() !!}
+                            <br><br>
                             <label>
                                 Alumnos Egresados:
                                 @if (session('total'))
-                                    {!! Form::number('TotalEgresados', session('total'), ['disabled','style' => 'width: 60px;']) !!}
+                                    {!! Form::number('TotalEgresados', session('total'), ['disabled','style' => 'width: 60px;', 'id' => 'TotalEgresados']) !!}
                                 @else
-                                    {!! Form::number('TotalEgresados', 0, ['disabled','style' => 'width: 60px;']) !!}
+                                    {!! Form::number('TotalEgresados', 0, ['disabled','style' => 'width: 60px;', 'id' => 'TotalEgresados']) !!}
                                 @endif
-                            </label>
-                        {!! Form::close() !!}
-                        
-                        {!! Form::open(['route' => ['jefe.correo.aleatorios'], 'method' => 'post']) !!}
+                            </label> <br><br>
                             <label>
                                 Seleccione el porcentaje de muestra deseado:
                                 {!! Form::select('PorcentajeM', $listaPorc, $porcSelec, ['id' => 'PorcentajeM']) !!}
                             </label>
                             <br>
                             {!! Form::submit('Generar usuarios aleatorios', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                            
                         {!! Form::close() !!}
                     </div>
                     <div class="mt-4 -mb-3 basis-1/4">
                         <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800">
                             <div class="relative rounded-xl overflow-auto">
                                 <div class="shadow-sm overflow-hidden my-8">
-                                    <table class="border-collapse table-auto w-80 text-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">ID</th>
-                                                <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="dark:bg-slate-800">
-                                            <tr>
-                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">1</td>
-                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">Malcolm Lockyer</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">2</td>
-                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">The Eagles</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="border-b border-slate-200 dark:border-slate-600 p-4 pl-8 text-slate-500 dark:text-slate-400">3</td>
-                                                <td class="border-b border-slate-200 dark:border-slate-600 p-4 text-slate-500 dark:text-slate-400">Earth, Wind, and Fire</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    {!! Form::open(['route' => ['jefe.correo.enviar'], 'method' => 'post']) !!}
+                                        <table class="border-collapse table-auto w-full text-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">No.</th>
+                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="dark:bg-slate-800">
+                                                @if (session('egresados'))
+                                                    @foreach (session('egresados') as $egresado)
+                                                        <tr>
+                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                                {{$loop->index + 1}}
+                                                            </td>
+                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                                                                <input name="NoControl[]" class="border-none dark:bg-slate-800" type="text" value={{$egresado->no_control_egresado}}>
+                                                                {{-- {!! Form::text('NoControl', $egresado->no_control_egresado, ['class' => 'border-none dark:bg-slate-800', 'disabled', 'name' => 'NoControl[]']) !!} --}}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                        <div class="grid grid-cols-3 gap-4 place-items-center">
+                                            <div></div>
+                                            <div>
+                                                @if (session('egresados'))
+                                                    {!! Form::submit('Confirmar y Enviar Correos', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                                @endif
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
-                            <div class="absolute inset-0 pointer-events-none border border-black/5 rounded-xl dark:border-white/5"></div>
                         </div>
                     </div>
                 </div>

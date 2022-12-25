@@ -23,13 +23,15 @@ Route::middleware('auth')->group(function () {
 
 //Route::get('/usuarios', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usuarios');
 
+//cambiar a validación de auth
+
 Route::resource('usuarios', UserController::class)->names('admin.usuarios');
 
 Route::resource('formegresado', EgresadoController::class)->names('egresado.form');
 
-Route::post('/jefe/enviar', 'JefeController@enviar')->name(('jefe.correo.enviar'));
+Route::post('/jefe/enviar', [JefeController::class, 'enviar'])->name(('jefe.correo.enviar'));
 
-Route::post('/jefe/buscar', [JefeController::class, 'buscar'])->name(('jefe.correo.buscar'));
+Route::post('/jefe/control', [JefeController::class, 'control'])->name(('jefe.correo.control'));
 
 Route::post('/jefe/aleatorios', [JefeController::class, 'aleatorios'])->name(('jefe.correo.aleatorios'));
 
