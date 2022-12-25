@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('muestras', function (Blueprint $table) {
             $table->id();
             $table->string('carrera');
-            $table->integer('anio');
+            $table->string('anio');
             $table->integer('porc_selec');
             $table->integer('total_selec');
             $table->timestamps();

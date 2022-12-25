@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_muestra');
             $table->string('no_control');
-            $table->integer('formulario');
+            $table->integer('formulario')->nullable();
             $table->timestamps();
         });
     }

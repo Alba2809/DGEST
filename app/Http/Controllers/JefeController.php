@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Egresado;
 use App\Models\Jefe;
+use App\Models\Muestra;
+use App\Models\MuestraEgresado;
 use App\Models\User;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -13,6 +15,7 @@ use League\CommonMark\Node\Block\Document;
 
 class JefeController extends Controller
 {
+
     public function index(){
         $jefe = Jefe::where('email', Auth::user()->email)->first();
 
@@ -64,9 +67,25 @@ class JefeController extends Controller
     }
 
     public function enviar(Request $request){
+        $jefe = Jefe::where('email', Auth::user()->email)->first();
+
+        $muestra = new Muestra();
+
+        $muestra->carrera = $jefe->carrera;
+        $muestra->anio = $request->Anio;
+        $muestra->porc_selec = $request->Porcentaje;
+        $muestra->total_selec = $request->Total;
+
+        $muestra->save();
+
         foreach ($request->NoControl as $egresado) {
-            echo $egresado;
+            $me = new MuestraEgresado();
+            
+            $me->id_muestra = $muestra->id;
+            $me->no_control = $egresado;
+
+            $me->save();
         }
-        return $request->NoControl;
+        return back()->withInput()->with('sucess', 'Se ha registrado la nueva muestra y se enviaron correctamente los correos a los egresados.');
     }
 }

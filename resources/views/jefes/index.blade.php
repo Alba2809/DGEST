@@ -57,13 +57,15 @@
                                                             </td>
                                                             <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
                                                                 <input name="NoControl[]" class="border-none dark:bg-slate-800" type="text" value={{$egresado->no_control_egresado}}>
-                                                                {{-- {!! Form::text('NoControl', $egresado->no_control_egresado, ['class' => 'border-none dark:bg-slate-800', 'disabled', 'name' => 'NoControl[]']) !!} --}}
                                                             </td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
                                             </tbody>
                                         </table>
+                                        {!! Form::hidden('Anio', $anioSelec, ['id' => 'Anio']) !!}
+                                        {!! Form::hidden('Total', session('total'), ['id' => 'total']) !!}
+                                        {!! Form::hidden('Porcentaje', $porcSelec, ['id' => 'Porcentaje']) !!}
                                         <div class="grid grid-cols-3 gap-4 place-items-center">
                                             <div></div>
                                             <div>
