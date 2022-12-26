@@ -5,11 +5,18 @@
         </h2>
     </x-slot>
 
+    @if (session('success'))
+        <div class="bg-clip-border p-6 bg-green-600 border-4 border-green-300 border-dashed mt-10">
+            <strong>{{session('success')}}</strong>
+        </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 grid grid-cols-2 gap-2">
                     <div class="basis-1/2">
+                        
                         <h1 class="text-lg">Carrera: {{$jefe->carrera}}</h1>
                         <h1 class="text-lg mb-10">Jefe de Carrera: {{$jefe->nombre}}</h1>
                         

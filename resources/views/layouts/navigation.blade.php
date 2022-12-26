@@ -15,9 +15,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('jefe.correo.index')" :active="request()->routeIs('jefe.correo.index')">
-                        {{ __('Enviar correos') }}
-                    </x-nav-link>
+                    @can('jefe.correo.index')
+                        <x-nav-link :href="route('jefe.correo.index')" :active="request()->routeIs('jefe.correo.index')">
+                            {{ __('Enviar correos') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('jefe.muestra.index')
+                        <x-nav-link :href="route('jefe.muestra.index')" :active="request()->routeIs('jefe.muestra.index')">
+                            {{ __('Muestras') }}
+                        </x-nav-link>
+                    @endcan
 
                     @can('admin.usuarios.index')
                         <x-nav-link :href="route('admin.usuarios.index')" :active="request()->routeIs('admin.usuarios.index')">

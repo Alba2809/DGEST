@@ -24,5 +24,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'login'])->syncRoles([$roleAdmin,$roleJefe,$roleEgresado,$roleEmpresa]);
         Permission::create(['name' => 'admin.usuarios.index'])->assignRole($roleAdmin);
         Permission::create(['name' => 'egresado.form.index'])->assignRole($roleEgresado);
+        Permission::create(['name' => 'jefe.correo.index'])->assignRole($roleJefe);
+        Permission::create(['name' => 'jefe.muestra.index'])->assignRole($roleJefe);
     }
 }

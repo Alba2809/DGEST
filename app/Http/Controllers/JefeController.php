@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EgresadosMailable;
 use App\Models\Egresado;
 use App\Models\Jefe;
 use App\Models\Muestra;
@@ -11,6 +12,7 @@ use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use League\CommonMark\Node\Block\Document;
 
 class JefeController extends Controller
@@ -85,7 +87,25 @@ class JefeController extends Controller
             $me->no_control = $egresado;
 
             $me->save();
+
+            $datosEgresado = Egresado::where('no_control_egresado', $egresado)->first();
+
+            $user = User::where('email', $datosEgresado->email)->first();
+
+            if (!$user) {
+                $user = new User();
+                $user->name = $datosEgresado->nombre;
+                $user->email = $datosEgresado->email;
+                $user->password = bcrypt('12345678');
+                
+                $user->save();
+                
+                $user->roles()->sync([3]);
+
+            }
+            
+            Mail::to($user->email)->send(new EgresadosMailable($datosEgresado));
         }
-        return back()->withInput()->with('sucess', 'Se ha registrado la nueva muestra y se enviaron correctamente los correos a los egresados.');
+        return back()->withInput()->with('success', 'Se ha registrado la nueva muestra y se enviaron correctamente los correos a los egresados.');
     }
 }
