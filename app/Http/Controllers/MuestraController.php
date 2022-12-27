@@ -52,7 +52,9 @@ class MuestraController extends Controller
 
         $dias_transcurridos = $fecha_actual->diffInDays($fecha_inicial);
 
-        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos'));
+        $total = Egresado::where('anio_egreso', $muestra->anio)->count();
+
+        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos', 'total'));
     }
 
     public function edit(Muestra $muestra)

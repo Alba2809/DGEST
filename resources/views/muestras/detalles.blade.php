@@ -22,7 +22,7 @@
                     <div class="basis-1/2">
                         <h1 class="text-xl">Datos Generales</h1>
                         <h1 class="text-base mt-5">Año: {{$muestra->anio}}</h1>
-                        <h1 class="text-base mt-5">Total egresados seleccionados: {{$muestra->total_selec}}</h1>
+                        <h1 class="text-base mt-5">Egresados seleccionados: {{$muestra->total_selec}} de {{$total}}</h1>
                         <h1 class="text-base mt-5">Muestreo seleccionado: {{$muestra->porc_selec}} %</h1>
                         <h1 class="text-base mt-5">Muestreo obtenido: {{$porc_obtenido}} %</h1>
                         <h1 class="text-base mt-5">Muestreo faltante: {{$muestra->porc_selec - $porc_obtenido}} %</h1>
@@ -46,7 +46,7 @@
                                     <table class="border-collapse table-auto w-full text-sm">
                                         <thead>
                                             <tr>
-                                                <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">No. Control</th>
+                                                <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
                                                 <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"></th>
                                             </tr>
                                         </thead>

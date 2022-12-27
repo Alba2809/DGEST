@@ -22,7 +22,7 @@
                     @endcan
 
                     @can('jefe.muestra.index')
-                        <x-nav-link :href="route('jefe.muestra.index')" :active="request()->routeIs('jefe.muestra.index')">
+                        <x-nav-link :href="route('jefe.muestra.index')" :active="request()->routeIs(['jefe.muestra.index', 'jefe.muestra.show'])">
                             {{ __('Muestras') }}
                         </x-nav-link>
                     @endcan
