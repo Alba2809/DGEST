@@ -6,7 +6,7 @@
     </x-slot>
 
     @if (session('success'))
-        <div class="bg-clip-border p-6 bg-green-600 border-4 border-green-300 border-dashed mt-10">
+        <div class="bg-clip-border p-6 bg-green-600 border-4 border-green-300 border-dashed mt-10 py-12">
             <strong>{{session('success')}}</strong>
         </div>
     @endif
@@ -70,7 +70,7 @@
                                                 @endif
                                             </tbody>
                                         </table>
-                                        {!! Form::hidden('Anio', $anioSelec, ['id' => 'Anio']) !!}
+                                        {!! Form::hidden('Anio', session('anioSelec'), ['id' => 'Anio']) !!}
                                         {!! Form::hidden('Total', session('total'), ['id' => 'total']) !!}
                                         {!! Form::hidden('Porcentaje', $porcSelec, ['id' => 'Porcentaje']) !!}
                                         <div class="grid grid-cols-3 gap-4 place-items-center">

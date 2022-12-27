@@ -38,7 +38,7 @@ Route::post('/jefe/aleatorios', [JefeController::class, 'aleatorios'])->middlewa
 
 Route::resource('jefe', JefeController::class)->middleware(['auth', 'verified'])->names('jefe.correo');
 
-Route::post('/muestras/{id}', [MuestraController::class, 'show'])->middleware(['auth', 'verified'])->name('jefe.muestra.detalles');
+//Route::post('/muestras/{id}', [MuestraController::class, 'show'])->middleware(['auth', 'verified'])->name('jefe.muestra.detalles');
 
 Route::resource('muestras', MuestraController::class)->middleware(['auth', 'verified'])->names('jefe.muestra');
 

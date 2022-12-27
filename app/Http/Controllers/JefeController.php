@@ -65,10 +65,11 @@ class JefeController extends Controller
             ->limit((int)$numEgresados)
             ->get();
         
-        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc);
+        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc)->with('anioSelec', $anioSelec);
     }
 
     public function enviar(Request $request){
+        
         $jefe = Jefe::where('email', Auth::user()->email)->first();
 
         $muestra = new Muestra();
