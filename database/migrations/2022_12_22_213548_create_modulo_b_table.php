@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_b', function (Blueprint $table) {
+            $table->id();
             $table->string('email_empresa');
             $table->integer('no_profesionistas');
             $table->integer('funcion_prefil');
             $table->string('requisitos');
             $table->string('demanda_carreras');
+            $table->timestamps();
         });
     }
 

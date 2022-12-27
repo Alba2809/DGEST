@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_3', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
             $table->integer('actividad');
             $table->string('estudia');
@@ -45,6 +46,7 @@ return new class extends Migration
             $table->integer('sector_secundario');
             $table->integer('sector_terciario');
             $table->integer('tamanio_empresa');
+            $table->timestamps();
         });
     }
 

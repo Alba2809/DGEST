@@ -20,6 +20,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/egresado/modulo1', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo1');
+    Route::post('/egresado/modulo2', [EgresadoController::class, 'modulo2'])->name('egresado.form.modulo2');
+    Route::post('/egresado/modulo3', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo3');
+    Route::post('/egresado/modulo4', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo4');
+    Route::post('/egresado/modulo5', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo5');
+    Route::post('/egresado/modulo6', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo6');
+    Route::post('/egresado/modulo7', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo7');
 });
 
 //Route::get('/usuarios', [App\Http\Controllers\UserController::class, 'index'])->name('admin.usuarios');
@@ -28,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('usuarios', UserController::class)->middleware(['auth', 'verified'])->names('admin.usuarios');
 
-Route::resource('formegresado', EgresadoController::class)->middleware(['auth', 'verified'])->names('egresado.form');
+Route::resource('egresado', EgresadoController::class)->middleware(['auth', 'verified'])->names('egresado.form');
 
 Route::post('/jefe/enviar', [JefeController::class, 'enviar'])->middleware(['auth', 'verified'])->name(('jefe.correo.enviar'));
 

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_a', function (Blueprint $table) {
+            $table->id();
             $table->string('email_empresa');
             $table->string('nombre');
             $table->string('domicilio');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->integer('organismo');
             $table->integer('tamanio_empresa');
             $table->string('actividad_economica');
+            $table->timestamps();
         });
     }
 

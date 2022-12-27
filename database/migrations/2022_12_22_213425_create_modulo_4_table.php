@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_4', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
             $table->integer('eficiencia');
             $table->integer('formacion_academica');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->integer('personalidad');
             $table->integer('liderazgo');
             $table->integer('otros');
+            $table->timestamps();
         });
     }
 

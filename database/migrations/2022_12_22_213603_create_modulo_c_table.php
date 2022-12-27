@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_c', function (Blueprint $table) {
+            $table->id();
             $table->string('email_empresa');
             $table->integer('resolver_conflictos');
             $table->integer('ortografia');
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->integer('desempeño_laboral');
             $table->string('sugerencias_instituto');
             $table->string('comentarios_sugerencias');
+            $table->timestamps();
         });
     }
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('especialidad');
             $table->string('mes_egreso');
             $table->string('anio_egreso');
-            $table->integer('form_hecho');
+            $table->bigInteger('form_hecho')->nullable();
             $table->timestamps();
         });
     }

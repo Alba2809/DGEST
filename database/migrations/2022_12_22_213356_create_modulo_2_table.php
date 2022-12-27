@@ -14,13 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_2', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
-            $table->integer('calidad_docentes');
-            $table->integer('plan_estudios');
-            $table->integer('part_proyectos');
-            $table->integer('enfasis_investigacion');
-            $table->integer('satisfaccion_cond');
-            $table->integer('experiencia_residencia');
+            $table->string('calidad_docentes');
+            $table->string('plan_estudios');
+            $table->string('part_proyectos');
+            $table->string('enfasis_investigacion');
+            $table->string('satisfaccion_cond');
+            $table->string('experiencia_residencia');
+            $table->timestamps();
         });
     }
 

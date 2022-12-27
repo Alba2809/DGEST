@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_7', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
             $table->text('comentarios');
+            $table->timestamps();
         });
     }
 

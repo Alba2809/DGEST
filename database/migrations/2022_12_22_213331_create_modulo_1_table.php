@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_1', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
-            $table->integer('estado_civil');
+            $table->string('estado_civil');
             $table->string('domicilio');
             $table->string('ciudad');
             $table->string('municipio');
@@ -23,8 +24,9 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('tel_casa');
             $table->string('lenguaje_ext');
-            $table->integer('titulado');
+            $table->string('titulado');
             $table->string('manejo_paquetes');
+            $table->timestamps();
         });
     }
 

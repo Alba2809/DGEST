@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_6', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
             $table->string('org_sociales');
             $table->string('org_profesionales');
             $table->integer('org_egresados');
+            $table->timestamps();
         });
     }
 

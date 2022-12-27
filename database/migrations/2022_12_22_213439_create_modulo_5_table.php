@@ -14,9 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('modulo_5', function (Blueprint $table) {
+            $table->id();
             $table->string('no_control_egresado');
             $table->string('actualizacion');
             $table->string('posgrado');
+            $table->timestamps();
         });
     }
 
