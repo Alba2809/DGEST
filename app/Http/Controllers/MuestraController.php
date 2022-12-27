@@ -108,6 +108,8 @@ class MuestraController extends Controller
                 ->update(['no_control' => $es->no_control_egresado]);
         }
 
+        $registrar_update = Muestra::where('id', $muestra->id)->update(['total_selec' => $muestra->total_selec]);
+
         /**
          * Se crean los nuevos usuarios
          */
