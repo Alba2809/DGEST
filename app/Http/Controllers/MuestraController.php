@@ -24,20 +24,13 @@ class MuestraController extends Controller
 
         return view('muestras.index', compact('muestras', 'jefe'));
     }
- 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
 
     public function show(Muestra $muestra)
     {
-        $egresados = MuestraEgresado::where('id_muestra', $muestra->id)->get();
+        $egresados = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
+            ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
+            ->where('id_muestra', $muestra->id)
+            ->get();
 
         $respuestas = MuestraEgresado::where('id_muestra', $muestra->id)->whereNotNull('formulario')->count();
 
@@ -140,13 +133,4 @@ class MuestraController extends Controller
         return back()->with('success', 'Se ha actualizado la muestra y enviado los correos exitosamente.');
     }
 
-    public function update(Muestra $muestra)
-    {
-        
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 }

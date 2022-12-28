@@ -11,6 +11,7 @@ use App\Models\Modulo4Egresado;
 use App\Models\Modulo5Egresado;
 use App\Models\Modulo6Egresado;
 use App\Models\Modulo7Egresado;
+use App\Models\MuestraEgresado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -42,7 +43,7 @@ class EgresadoController extends Controller
                                     if ($formulario->modulo_7) {
                                         $modulo = 8;
                                     } else {
-                                        $modulo = 6;
+                                        $modulo = 7;
                                     }
 
                                 } else {
@@ -289,6 +290,261 @@ class EgresadoController extends Controller
 
         return back();
 
+    }
+
+    public function modulo4(Request $request)
+    {
+
+        $egresado = Egresado::where('email', Auth::user()->email)->first();
+
+        $mensajes = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'same'    => 'The :attribute and :other must match.',
+            'size'    => 'El campo :attribute debe ser de :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in'      => 'The :attribute must be one of the following types: :values',
+        ];
+        
+        //validaciones
+        $reglas = [
+            'eficiencia' => 'required',
+        ];
+
+        $validar = Validator::make($request->all(), $reglas, $mensajes);
+
+        if($validar->fails()){
+            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+        }
+
+        //se seleccionó alguna opción de la primera pregunta
+        $modulo = new Modulo4Egresado();
+        $modulo->no_control_egresado = $egresado->no_control_egresado;
+        
+        $modulo->eficiencia = $request->eficiencia;
+        $modulo->formacion_academica = $request->formacion_academica;
+        $modulo->utilidad_residencias = $request->utilidad_residencias;
+        $modulo->campo = $request->campo;
+        $modulo->titulacion = $request->titulacion;
+        $modulo->experiencia_laboral = $request->experiencia_laboral;
+        $modulo->competencia_laboral = $request->competencia_laboral;
+        $modulo->institucion_egreso = $request->institucion_egreso;
+        $modulo->conocimientos_idiomas = $request->conocimientos_idiomas;
+        $modulo->referencias = $request->referencias;
+        $modulo->personalidad = $request->personalidad;
+        $modulo->liderazgo = $request->liderazgo;
+        if($request->AspectoTexto){
+            $modulo->otros = $request->AspectoTexto.': '.$request->otros;
+        } else {
+            $modulo->otros = $request->otros; 
+        }
+
+        //Si no hubo errores se continua con el registro del modulo en la BD
+        $modulo->save();
+
+        //se actualiza el registro de formulario, agregando el nuevo modulo registrado
+        $existe = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)->first();
+
+        if($existe){
+            $afectado = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)
+            ->update(['modulo_4' => $modulo->id]);
+        }else{
+            $formulario = new FormularioEgresado();
+            $formulario->no_control_egresado = $egresado->no_control_egresado;
+            $formulario->modulo_4 = $modulo->id;
+            $formulario->save();
+
+            $afectado = $egresado = Egresado::where('email', Auth::user()->email)
+                ->update(['form_hecho' => 1]);
+        }
+
+        return back();
+
+    }
+
+    public function modulo5(Request $request)
+    {
+        //return $request;
+        $egresado = Egresado::where('email', Auth::user()->email)->first();
+
+        $mensajes = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'same'    => 'The :attribute and :other must match.',
+            'size'    => 'El campo :attribute debe ser de :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in'      => 'The :attribute must be one of the following types: :values',
+        ];
+        
+        //validaciones
+        $reglas = [
+            'actualizacion' => 'required',
+        ];
+
+        $validar = Validator::make($request->all(), $reglas, $mensajes);
+
+        if($validar->fails()){
+            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+        }
+
+        //se seleccionó alguna opción de la primera pregunta
+        $modulo = new Modulo5Egresado();
+        $modulo->no_control_egresado = $egresado->no_control_egresado;
+        if($request->actualizaciontexto && $request->actualizacion == 'Si'){
+            $modulo->actualizacion = $request->actualizacion.': '.$request->actualizaciontexto;
+        } else {
+            $modulo->actualizacion = $request->actualizacion; 
+        }
+        if($request->posgradotexto && $request->posgrado == 'Si'){
+            $modulo->posgrado = $request->posgrado.': '.$request->posgradotexto;
+        } else {
+            $modulo->posgrado = $request->posgrado; 
+        }
+
+        //Si no hubo errores se continua con el registro del modulo en la BD
+        $modulo->save();
+
+        //se actualiza el registro de formulario, agregando el nuevo modulo registrado
+        $existe = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)->first();
+
+        if($existe){
+            $afectado = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)
+                ->update(['modulo_5' => $modulo->id]);
+        }else{
+            $formulario = new FormularioEgresado();
+            $formulario->no_control_egresado = $egresado->no_control_egresado;
+            $formulario->modulo_5 = $modulo->id;
+            $formulario->save();
+
+            $afectado = $egresado = Egresado::where('email', Auth::user()->email)
+                ->update(['form_hecho' => 1]);
+        }
+
+        return back();
+
+    }
+
+    public function modulo6(Request $request)
+    {
+        //return $request;
+        $egresado = Egresado::where('email', Auth::user()->email)->first();
+
+        $mensajes = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'same'    => 'The :attribute and :other must match.',
+            'size'    => 'El campo :attribute debe ser de :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in'      => 'The :attribute must be one of the following types: :values',
+        ];
+        
+        //validaciones
+        $reglas = [
+            'org_sociales' => 'required',
+        ];
+
+        $validar = Validator::make($request->all(), $reglas, $mensajes);
+
+        if($validar->fails()){
+            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+        }
+
+        //se seleccionó alguna opción de la primera pregunta
+        $modulo = new Modulo6Egresado();
+        $modulo->no_control_egresado = $egresado->no_control_egresado;
+        if($request->org_socialestexto && $request->org_sociales == 'Si'){
+            $modulo->org_sociales = $request->org_sociales.': '.$request->org_socialestexto;
+        } else {
+            $modulo->org_sociales = $request->org_sociales; 
+        }
+
+        if($request->org_profesionalestexto && $request->org_profesionales == 'Si'){
+            $modulo->org_profesionales = $request->org_profesionales.': '.$request->org_profesionalestexto;
+        } else {
+            $modulo->org_profesionales = $request->org_profesionales; 
+        }
+
+        $modulo->org_egresados = $request->org_egresados; 
+
+        //Si no hubo errores se continua con el registro del modulo en la BD
+        $modulo->save();
+
+        //se actualiza el registro de formulario, agregando el nuevo modulo registrado
+        $existe = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)->first();
+
+        if($existe){
+            $afectado = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)
+                ->update(['modulo_6' => $modulo->id]);
+        }else{
+            $formulario = new FormularioEgresado();
+            $formulario->no_control_egresado = $egresado->no_control_egresado;
+            $formulario->modulo_6 = $modulo->id;
+            $formulario->save();
+
+            $afectado = $egresado = Egresado::where('email', Auth::user()->email)
+                ->update(['form_hecho' => 1]);
+        }
+
+        return back();
+
+    }
+
+    public function modulo7(Request $request)
+    {
+        //return $request;
+        $egresado = Egresado::where('email', Auth::user()->email)->first();
+
+        $mensajes = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'same'    => 'The :attribute and :other must match.',
+            'size'    => 'El campo :attribute debe ser de :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in'      => 'The :attribute must be one of the following types: :values',
+            'min'      => 'El campo :attribute debe tener al menos :min caracteres.',
+            'max'      => 'El campo :attribute debe tener maximo :max caracteres.',
+        ];
+        
+        //validaciones
+        $reglas = [
+            'comentarios' => 'max:60000',
+        ];
+
+        $validar = Validator::make($request->all(), $reglas, $mensajes);
+
+        if($validar->fails()){
+            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+        }
+
+        //se seleccionó alguna opción de la primera pregunta
+        $modulo = new Modulo7Egresado();
+        $modulo->no_control_egresado = $egresado->no_control_egresado;
+        $modulo->comentarios = $request->comentarios;
+
+        //Si no hubo errores se continua con el registro del modulo en la BD
+        $modulo->save();
+
+        //se actualiza el registro de formulario, agregando el nuevo modulo registrado
+        $existe = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)->first();
+
+        if($existe){
+            $afectado = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)
+                ->update(['modulo_7' => $modulo->id]);
+
+            //se marca el egresado con el status de terminado en la tabla muestras_egresados
+            $afectado = MuestraEgresado::where('no_control', $egresado->no_control_egresado)
+                ->update(['formulario' => $existe->id]);
+        }else{
+            $formulario = new FormularioEgresado();
+            $formulario->no_control_egresado = $egresado->no_control_egresado;
+            $formulario->modulo_7 = $modulo->id;
+            $formulario->save();
+
+            $afectado = $egresado = Egresado::where('email', Auth::user()->email)
+                ->update(['form_hecho' => 1]);
+
+            //se marca el egresado con el status de terminado en la tabla muestras_egresados
+            $afectadoM = MuestraEgresado::where('no_control', $egresado->no_control_egresado)
+                ->update(['formulario' => $formulario->id]);
+        }
+
+        return back();
     }
 
     public function store(Request $request)

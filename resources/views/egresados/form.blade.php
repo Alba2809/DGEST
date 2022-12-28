@@ -193,7 +193,7 @@
                                                     Manejo de paquetes computacionales (especificar):
                                                     {!! Form::text('ManejoPaquetes', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
-                                                {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                                                {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
                                             {!! Form::close() !!}
                                         </div>
                                     </div>
@@ -250,7 +250,7 @@
                                             <span class="pr-3">Regular</span>{!! Form::radio('experiencia_residencia', 'Regular', false, ['class' => 'mr-7']) !!}
                                             <span class="pr-3">Mala</span>{!! Form::radio('experiencia_residencia', 'Mala', false, ['class' => 'mr-7']) !!}
                                         </div>
-                                        {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                                        {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
                                     {!! Form::close() !!}
                                 </div>
                                 @break
@@ -437,24 +437,262 @@
                                     </h1>
                                     <h1 class="text-lg">Marcar los campos que correspondan a su trayectoria profesional.</h1>
 
-                                    {!! Form::open(['route' => ['egresado.form.modulo3'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                    {!! Form::open(['route' => ['egresado.form.modulo4'], 'method' => 'post', 'class' => 'mt-5']) !!}
                                     <div class="grid grid-cols-4 gap-4">
-                                        <label class="pr-10 col-span-4">IV.1   Eficiencia para realizar las actividades laborales, en relación con su formación académica: </label> <x-input-error :messages="$errors->get('actividad')"/>
+                                        <label class="pr-10 col-span-4">IV.1  Eficiencia para realizar las actividades laborales, en relación con su formación académica: </label>
                                         <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', true, ['class' => 'mr-7 ml-3']) !!}</span>
                                         <span class="col-span-1">Eficiente{!! Form::radio('eficiencia', 'Eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
                                         <span class="col-span-1">Poco eficiente{!! Form::radio('eficiencia', 'Poco eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
                                         <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                    </div>
-                                    <div class="grid grid-cols-4 gap-4">
                                         
+                                        <label class="pr-10 col-span-4">IV.2  Cómo califica su formación académica con respecto a su desempeño laboral:</label>
+                                        <span class="col-span-1">Excelente{!! Form::radio('formacion_academica', 'Excelente', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Bueno{!! Form::radio('formacion_academica', 'Bueno', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Regular{!! Form::radio('formacion_academica', 'Regular', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Malo{!! Form::radio('formacion_academica', 'Malo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Pésimo{!! Form::radio('formacion_academica', 'Pésimo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">IV.3  Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional:</label>
+                                        <span class="col-span-1">Excelente{!! Form::radio('utilidad_residencias', 'Excelente', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Bueno{!! Form::radio('utilidad_residencias', 'Bueno', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Regular{!! Form::radio('utilidad_residencias', 'Regular', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Malo{!! Form::radio('utilidad_residencias', 'Malo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Pésimo{!! Form::radio('utilidad_residencias', 'Pésimo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+
+                                        <label class="pr-10 col-span-4">IV.4  Aspectos que valora la empresa u organismo para la contratación de egresados:</label>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div class="grid grid-cols-5 gap-5">
+                                            <span>Poco</span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span>Mucho</span>
+
+                                            <span class="justify-self-center">1</span>
+                                            <span class="justify-self-center">2</span>
+                                            <span class="justify-self-center">3</span>
+                                            <span class="justify-self-center">4</span>
+                                            <span class="justify-self-center">5</span>
+                                        </div>
                                     </div>
-                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                                    <div class=" divide-y divide-slate-200">
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">1. Área o Campo de Estudio</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('campo', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('campo', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('campo', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('campo', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('campo', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">2. Titulación</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('titulacion', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('titulacion', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('titulacion', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('titulacion', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('titulacion', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">3. Experiencia Laboral/práctica (antes de egresar)</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('experiencia_laboral', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('experiencia_laboral', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('experiencia_laboral', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('experiencia_laboral', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('experiencia_laboral', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-20 flex items-center">4. Competencia Laboral: Habilidad para resolver problemas, capacidad de análisis, habilidad para el aprendizaje, creatividad, administración del tiempo, capacidad de negociación, habilidades manuales, trabajo en equipo, iniciativa, honestidad, persistencia, etc.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('competencia_laboral', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('competencia_laboral', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('competencia_laboral', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('competencia_laboral', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('competencia_laboral', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">5. Posicionamiento de la Institución de Egreso.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('institucion_egreso', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('institucion_egreso', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('institucion_egreso', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('institucion_egreso', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('institucion_egreso', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">6. Conocimiento de Idiomas Extranjeros.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('conocimientos_idiomas', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('conocimientos_idiomas', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('conocimientos_idiomas', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('conocimientos_idiomas', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('conocimientos_idiomas', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">7. Recomendaciones/referencias.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('referencias', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('referencias', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('referencias', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('referencias', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('referencias', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">8. Personalidad/Actitudes.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('personalidad', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('personalidad', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('personalidad', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('personalidad', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('personalidad', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">9. Capacidad de liderazgo.</span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('liderazgo', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('liderazgo', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('liderazgo', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('liderazgo', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('liderazgo', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-4 gap-4">
+                                            <span class="col-span-3 h-10 flex items-center">10. Otros.
+                                                {!! Form::text('AspectoTexto', '', ['class' => 'h-6']) !!}
+                                            </span>
+                                            <div class="grid grid-cols-5 gap-5">
+                                                {!! Form::radio('otros', '1', true, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('otros', '2', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('otros', '3', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('otros', '4', false, ['class' => 'place-self-center']) !!}
+                                                {!! Form::radio('otros', '5', false, ['class' => 'place-self-center']) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @break
+
+                                @case(5)
+                                <div>
+                                    <h1 class="text-xl">
+                                        V. EXPECTATIVAS DE DESARROLLO, SUPERACIÓN PROFESIONAL Y DE ACTUALIZACIÓN
+                                    </h1>
+
+                                    {!! Form::open(['route' => ['egresado.form.modulo5'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                    <div class="grid grid-cols-5 gap-5  flex items-center">
+                                        <label class="pr-10 col-span-5">V.1  ACTUALIZACIÓN DE CONOCIMIENTOS:</label>
+                                        <span class="col-span-2">Le gustaría tomar cursos de actualización:</span>
+                                        <span class="col-span-1">
+                                            Si
+                                            {!! Form::radio('actualizacion', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
+                                            No
+                                            {!! Form::radio('actualizacion', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                        </span>
+                                        <span class="col-span-2">
+                                            <div class="grid grid-cols-5 gap-5 flex items-center">
+                                                ¿Cuáles?:
+                                                {!! Form::text('actualizaciontexto', '', ['class' => 'col-span-4']) !!}
+                                            </div>
+                                        </span>
+
+                                        <span class="col-span-2">Le gustaría tomar algún Posgrado:</span>
+                                        <span class="col-span-1">
+                                            Si
+                                            {!! Form::radio('posgrado', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
+                                            No
+                                            {!! Form::radio('posgrado', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                        </span>
+                                        <span class="col-span-2">
+                                            <div class="grid grid-cols-5 gap-5 flex items-center">
+                                                ¿Cuáles?:
+                                                {!! Form::text('posgradotexto', '', ['class' => 'col-span-4']) !!}
+                                            </div>
+                                        </span>
+                                    </div>
+                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @break
+
+                                @case(6)
+                                <div>
+                                    <h1 class="text-xl">
+                                        VI. PARTICIPACIÓN SOCIAL DE LOS EGRESADOS
+                                    </h1>
+
+                                    {!! Form::open(['route' => ['egresado.form.modulo6'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                    <div class="grid grid-cols-5 gap-5  flex items-center">
+                                        <span class="col-span-2">VI.1  Pertenece a organizaciones sociales:</span>
+                                        <span class="col-span-1">
+                                            Si
+                                            {!! Form::radio('org_sociales', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
+                                            No
+                                            {!! Form::radio('org_sociales', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                        </span>
+                                        <span class="col-span-2">
+                                            <div class="grid grid-cols-5 gap-5 flex items-center">
+                                                ¿Cuáles?:
+                                                {!! Form::text('org_socialestexto', '', ['class' => 'col-span-4']) !!}
+                                            </div>
+                                        </span>
+                                        <span class="col-span-2">VI.2  Pertenece a organismos de profesionistas:</span>
+                                        <span class="col-span-1">
+                                            Si
+                                            {!! Form::radio('org_profesionales', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
+                                            No
+                                            {!! Form::radio('org_profesionales', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                        </span>
+                                        <span class="col-span-2">
+                                            <div class="grid grid-cols-5 gap-5 flex items-center">
+                                                ¿Cuáles?:
+                                                {!! Form::text('org_profesionalestexto', '', ['class' => 'col-span-4']) !!}
+                                            </div>
+                                        </span>
+
+                                        <span class="col-span-2">VI.3  Pertenece a la asociación de egresados:</span>
+                                        <span class="col-span-1">
+                                            Si
+                                            {!! Form::radio('org_egresados', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
+                                            No
+                                            {!! Form::radio('org_egresados', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                        </span>
+                                    </div>
+                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @break
+
+                                @case(7)
+                                <div>
+                                    <h1 class="text-xl">
+                                        VI.  COMENTARIOS Y SUGERENCIAS
+                                    </h1>
+                                    <h1 class="text-lg">Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera.</h1>
+                                    {!! Form::open(['route' => ['egresado.form.modulo7'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                        {!! Form::textarea('comentarios', '', ['style' => 'resize: none', 'class' => 'w-full']) !!} <x-input-error :messages="$errors->get('comentarios')"/>
+                                    {!! Form::submit('Finalizar formulario', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
                                     {!! Form::close() !!}
                                 </div>
                                 @break
 
                                 @default
-                                <p>Default</p>
+                                <h1 class="text-xl">
+                                    Ya ha contestado el formulario, le agradecemos su tiempo empleado.
+                                </h1>
                             @endswitch
                         @endif
                     </div>

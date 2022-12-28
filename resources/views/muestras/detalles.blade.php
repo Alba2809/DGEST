@@ -26,7 +26,7 @@
                         <h1 class="text-base mt-5">Muestreo seleccionado: {{$muestra->porc_selec}} %</h1>
                         <h1 class="text-base mt-5">Muestreo obtenido: {{$porc_obtenido}} %</h1>
                         <h1 class="text-base mt-5">Muestreo faltante: {{$muestra->porc_selec - $porc_obtenido}} %</h1>
-                        @if ($dias_transcurridos >= 0)
+                        @if ($dias_transcurridos >= 0 && $muestra->porc_selec != $porc_obtenido)
                             <h1 class="text-base underline decoration-red-500 mt-5 mb-5">Días transcurridos: {{$dias_transcurridos}}</h1>
                             <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
                                 <a href="{{route('jefe.muestra.edit', $muestra)}}" class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5">Reeseleccionar egresados</a>
@@ -40,36 +40,70 @@
                     </div>
 
                     <div class="mt-4 -mb-3 basis-1/4">
-                        <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800">
-                            <div class="relative rounded-xl overflow-auto">
-                                <div class="shadow-sm overflow-hidden my-8">
-                                    <table class="border-collapse table-auto w-full text-sm">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
-                                                <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="dark:bg-slate-800">
-                                            @foreach ($egresados as $egresado)
+                        <div class="bg-slate-50 rounded-xl dark:bg-slate-800">
+                            <div class="rounded-xl overflow-auto">
+                                <div class="shadow-sm overflow-y my-8">
+                                    <div class="overflow-auto h-72 relative max-w-sm mx-auto bg-white dark:bg-slate-800 dark:highlight-white/5 rounded-xl">
+                                        <table class="border-collapse table-auto w-full text-sm">
+                                            <thead>
                                                 <tr>
-                                                    <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                                                        {{$egresado->no_control}}
-                                                    </td>
-                                                    @if ($egresado->formulario)
-                                                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                                                            <a href="{{route('jefe.muestra.show', $egresado)}}" class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5">Ver Formulario</a>
-                                                        </td>
-                                                    @endif
+                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
+                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Estado</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody class="dark:bg-slate-800">
+                                                @foreach ($egresados as $egresado)
+                                                    <tr>
+                                                        <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                            {{$egresado->no_control}}
+                                                        </td>
+                                                        @if ($egresado->formulario)
+                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                                                                {{-- <a href="{{route('jefe.muestra.show', $egresado)}}" class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5">Ver Formulario</a> --}}
+                                                                <div class="text-xl font-extrabold">
+                                                                    <span class="bg-clip-text text-transparent bg-[#4ade80]">
+                                                                        Finalizado
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        @endif
+                                                        @if ($egresado->form_hecho && !$egresado->formulario)
+                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                                                                {{-- <a href="{{route('jefe.muestra.show', $egresado)}}" class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5">Ver Formulario</a> --}}
+                                                                <div class="text-xl font-extrabold">
+                                                                    <span class="bg-clip-text text-transparent bg-[#fde047]">
+                                                                        En proceso
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        @endif
+    
+                                                        @if (!$egresado->form_hecho && !$egresado->formulario)
+                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                                                                {{-- <a href="{{route('jefe.muestra.show', $egresado)}}" class="bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5">Ver Formulario</a> --}}
+                                                                <div class="text-xl font-extrabold">
+                                                                    <span class="bg-clip-text text-transparent bg-[#ef4444]">
+                                                                        Sin empezar
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
+                    {{-- Se muestran las gráficas si se ha obtenido al menos una respuesta --}}
+                    @if ($porc_obtenido)
+                        Graficas
+                    @else
+                        <h1 class="text-base underline">Sin respuestas.</h1>
+                    @endif
                 </div>
             </div>
         </div>
