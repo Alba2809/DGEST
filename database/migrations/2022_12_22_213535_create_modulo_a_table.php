@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('municipio');
             $table->string('estado');
             $table->string('telefono');
-            $table->integer('organismo');
-            $table->integer('tamanio_empresa');
+            $table->string('organismo');
+            $table->string('tamanio_empresa');
             $table->string('actividad_economica');
             $table->timestamps();
         });

@@ -65,7 +65,7 @@ class JefeController extends Controller
             ->limit((int)$numEgresados)
             ->get();
         
-        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc)->with('anioSelec', $anioSelec)->with('porcSelec', $porcSelec)->with('numEgresados', $numEgresados);
+        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc)->with('anioSelec', $anioSelec)->with('porcSelec', $porcSelec)->with('numEgresados', $egresadosSelc->count());
     }
 
     public function enviar(Request $request){

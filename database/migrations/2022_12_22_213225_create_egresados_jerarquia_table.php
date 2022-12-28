@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('egresados_jerarquia', function (Blueprint $table) {
-            $table->string('email');
+            $table->string('email_empresa');
             $table->string('carreras');
             $table->string('mando');
         });

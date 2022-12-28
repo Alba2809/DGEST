@@ -7,6 +7,56 @@
         margin: 0; 
     }
 </style>
+
+<script type="text/javascript">
+    function actOpc() {
+        
+        
+        if (document.getElementById('actEstudiaTrabaja').checked) {
+            document.getElementById('estudiaopciones').classList.remove("hidden");
+            document.getElementById('trabajaopciones').classList.remove("hidden");
+        }
+        else{
+            if (document.getElementById('actEstudia').checked) {
+                document.getElementById('estudiaopciones').classList.remove("hidden");
+            }
+            else document.getElementById('estudiaopciones').classList.add("hidden");
+            
+            if (document.getElementById('actTrabaja').checked) {
+                document.getElementById('trabajaopciones').classList.remove("hidden");
+            }
+            else document.getElementById('trabajaopciones').classList.add("hidden");
+        }
+    }
+    function otratexto() {
+        if (document.getElementById('Otra').checked) {
+            document.getElementById('OtraTexto').classList.remove("hidden");
+        }
+        else document.getElementById('OtraTexto').classList.add("hidden");
+        
+        if (document.getElementById('MedioOtro').checked) {
+            document.getElementById('MedioTexto').classList.remove("hidden");
+        }
+        else document.getElementById('MedioTexto').classList.add("hidden");
+        
+        if (document.getElementById('RequisitoOtro').checked) {
+            document.getElementById('RequisitoTexto').classList.remove("hidden");
+        }
+        else document.getElementById('RequisitoTexto').classList.add("hidden");
+        
+        if (document.getElementById('IdiomaOtro').checked) {
+            document.getElementById('IdiomaTexto').classList.remove("hidden");
+        }
+        else document.getElementById('IdiomaTexto').classList.add("hidden");
+        
+        if (document.getElementById('CondicionOtro').checked) {
+            document.getElementById('CondicionTexto').classList.remove("hidden");
+        }
+        else document.getElementById('CondicionTexto').classList.add("hidden");
+    }
+    
+</script>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -201,6 +251,204 @@
                                             <span class="pr-3">Mala</span>{!! Form::radio('experiencia_residencia', 'Mala', false, ['class' => 'mr-7']) !!}
                                         </div>
                                         {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @break
+                                @case(3)
+                                <div>
+                                    <h1 class="text-xl">III. UBICACIÓN LABORAL DE LOS EGRESADOS</h1>
+                                    <h1 class="text-lg">Indique a cuál de los siguientes puntos corresponde su situación actual.</h1>
+                                    {!! Form::open(['route' => ['egresado.form.modulo3'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                    <div class="grid grid-cols-4 gap-4">
+
+                                        <label class="pr-10 col-span-4">III.1  Actividad a la que se dedica actualmente: </label> <x-input-error :messages="$errors->get('actividad')"/>
+                                        <span class="col-span-1">Trabaja{!! Form::radio('actividad', 'Trabaja', false, ['class' => 'mr-7 ml-3', 'onclick' => 'actOpc()', 'id' => 'actTrabaja']) !!}</span>
+                                        <span class="col-span-1">Estudia{!! Form::radio('actividad', 'Estudia', false, ['class' => 'mr-7 ml-3', 'onclick' => 'actOpc()', 'id' => 'actEstudia']) !!}</span>
+                                        <span class="col-span-1">Estudia y Trabaja{!! Form::radio('actividad', 'Estudia y Trabaja', false, ['class' => 'mr-7 ml-3', 'onclick' => 'actOpc()', 'id' => 'actEstudiaTrabaja']) !!}</span>
+                                        <span class="col-span-1">No estudia ni trabaja{!! Form::radio('actividad', 'No estudia ni trabaja', true, ['class' => 'mr-7 ml-3', 'onclick' => 'actOpc()']) !!}</span>
+                                        
+                                        <div id="estudiaopciones" class="col-span-4 hidden">
+                                            <label class="pr-10 col-span-2">Si estudia, indicar si es:</label>
+                                            <div class="col-span-4">
+                                                <span class="pr-3">Especialidad</span>{!! Form::radio('estudia', 'Especialidad', true, ['class' => 'mr-7', 'onclick' => 'otratexto()']) !!}
+                                                <span class="pr-3">Maestría</span>{!! Form::radio('estudia', 'Maestría', false, ['class' => 'mr-7', 'onclick' => 'otratexto()']) !!}
+                                                <span class="pr-3">Doctorado</span>{!! Form::radio('estudia', 'Doctorado', false, ['class' => 'mr-7', 'onclick' => 'otratexto()']) !!}
+                                                <span class="pr-3">Idiomas</span>{!! Form::radio('estudia', 'Idiomas', false, ['class' => 'mr-7', 'onclick' => 'otratexto()']) !!}
+                                                <span class="pr-3">Otra</span>{!! Form::radio('estudia', 'Otra', false, ['class' => 'mr-7', 'onclick' => 'otratexto()', 'id' => 'Otra']) !!}
+                                                {!! Form::text('OtraTexto', '', ['class' => 'hidden', 'id' => 'OtraTexto']) !!}
+                                            </div>
+                                            <div class="mt-3">
+                                                <span class="col-span-1">
+                                                    <label class="pr-10 self-center items-center">Especialidad e Institución:</label>
+                                                </span>
+                                                {!! Form::text('especialidad_inst', '', ['style' => 'width: 80%']) !!} <br>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div id="trabajaopciones" class="grid grid-cols-4 gap-4 hidden">
+                                        <br><label class="pr-10 col-span-4">III.2  En caso de trabajar: Tiempo Transcurrido para obtener el primer empleo: </label>
+                                        <span class="col-span-1">Antes de Egresar{!! Form::radio('trabaja', 'Antes de Egresar', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Menos de seis meses{!! Form::radio('trabaja', 'Menos de seis meses', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Entre seis meses y un año{!! Form::radio('trabaja', 'Entre seis meses y un año', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Más de un año{!! Form::radio('trabaja', 'Más de un año', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.3  Medio para Obtener el Empleo:</label>
+                                        <span class="col-span-1">Bolsa de trabajo del plantel{!! Form::radio('medio', 'Bolsa de trabajo del plantel', true, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Contactos personales{!! Form::radio('medio', 'Contactos personales', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Residencia Profesional{!! Form::radio('medio', 'Residencia Profesional', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Medios masivos de comunicación{!! Form::radio('medio', 'Medios masivos de comunicación', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Otros{!! Form::radio('medio', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'MedioOtro']) !!}
+                                        {!! Form::text('MedioTexto', '', ['class' => 'hidden', 'id' => 'MedioTexto']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.4  Requisitos de contratación:</label>
+                                        <span class="col-span-1">Competencias laborales{!! Form::radio('requisitos_contrato', 'Competencias laborales', true, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Título Profesiona{!! Form::radio('requisitos_contrato', 'Título Profesiona', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Examen de selección{!! Form::radio('requisitos_contrato', 'Examen de selección', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Idioma Extranjero{!! Form::radio('requisitos_contrato', 'Idioma Extranjero', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Actitudes y habilidades socio-comunicativas (principios y valores){!! Form::radio('requisitos_contrato', 'Actitudes y habilidades socio-comunicativas (principios y valores)', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Ninguno{!! Form::radio('requisitos_contrato', 'Ninguno', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Otros{!! Form::radio('requisitos_contrato', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'RequisitoOtro']) !!}
+                                        {!! Form::text('RequisitoTexto', '', ['class' => 'hidden', 'id' => 'RequisitoTexto']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.5  Idioma que utiliza en su trabajo:</label>
+                                        <span class="col-span-1">Inglés{!! Form::radio('idiomas', 'Inglés', true, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Francés{!! Form::radio('idiomas', 'Francés', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Alemán{!! Form::radio('idiomas', 'Alemán', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Japonés{!! Form::radio('idiomas', 'Japonés', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Otros{!! Form::radio('idiomas', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'IdiomaOtro']) !!}
+                                        {!! Form::text('IdiomaTexto', '', ['class' => 'hidden', 'id' => 'IdiomaTexto']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.6  En qué proporción utiliza en el desempeño de sus actividades laborales cada una de las habilidades del idioma extranjero:</label>
+                                        <span class="col-span-1">Hablar {!! Form::number('Hablar', '', ['placeholder' => '0', 'style' => 'width: 60px', 'class' => 'p-2']) !!} <span>%</span></span>
+                                        <span class="col-span-1">Escribir {!! Form::number('Escribir', '', ['placeholder' => '0', 'style' => 'width: 60px', 'class' => 'p-2']) !!} <span>%</span></span>
+                                        <span class="col-span-1">Leer {!! Form::number('Leer', '', ['placeholder' => '0', 'style' => 'width: 60px', 'class' => 'p-2']) !!} <span>%</span></span>
+                                        <span class="col-span-1">Escuchar {!! Form::number('Escuchar', '', ['placeholder' => '0', 'style' => 'width: 60px', 'class' => 'p-2']) !!} <span>%</span></span>
+                                        
+                                        <label class="pr-10 col-span-4">III.7  Antigüedad en el empleo:</label>
+                                        <span class="col-span-1">Menos de un año{!! Form::radio('antiguedad', 'Menos de un año', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Un año{!! Form::radio('antiguedad', 'Un año', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Dos años{!! Form::radio('antiguedad', 'Dos años', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Tres Años{!! Form::radio('antiguedad', 'Tres Años', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Más de tres años{!! Form::radio('antiguedad', 'Más de tres años', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-4">Año de ingreso {!! Form::number('anio_egreso', '', ['placeholder' => '2020', 'style' => 'width: 60px', 'class' => 'p-2']) !!}</span>
+
+                                        <label class="pr-10 col-span-4">III.8  Ingreso (salario mínimo diario):</label>
+                                        <span class="col-span-1">Menos de cinco{!! Form::radio('salario_minimo', 'Menos de cinco', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Entre cinco y siete{!! Form::radio('salario_minimo', 'Entre cinco y siete', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Entre 8 y 10{!! Form::radio('salario_minimo', 'Entre 8 y 10', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Más de 10{!! Form::radio('salario_minimo', 'Más de 10', false, ['class' => 'mr-7 ml-3']) !!}</span>
+
+                                        <label class="pr-10 col-span-4">III.9  Nivel jerárquico en el trabajo:</label>
+                                        <span class="col-span-1">Técnico{!! Form::radio('nivel_jerarquico', 'Técnico', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Supervisor{!! Form::radio('nivel_jerarquico', 'Supervisor', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Jefe de área{!! Form::radio('nivel_jerarquico', 'Jefe de área', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Funcionario{!! Form::radio('nivel_jerarquico', 'Funcionario', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Directivo{!! Form::radio('nivel_jerarquico', 'Directivo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Empresario{!! Form::radio('nivel_jerarquico', 'Empresario', false, ['class' => 'mr-7 ml-3']) !!}</span>
+
+                                        <label class="pr-10 col-span-4">III.10  Condición de Trabajo:</label>
+                                        <span class="col-span-1">Base{!! Form::radio('condicion_trabajo', 'Base', true, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Eventual{!! Form::radio('condicion_trabajo', 'Eventual', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-1">Contrato{!! Form::radio('condicion_trabajo', 'Contrato', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
+                                        <span class="col-span-2">Otros{!! Form::radio('condicion_trabajo', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'CondicionOtro']) !!}
+                                        {!! Form::text('CondicionTexto', '', ['class' => 'hidden', 'id' => 'CondicionTexto']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.11  Relación del trabajo con su área de formación:</label>
+                                        <span class="col-span-1">0%{!! Form::radio('relacion_area', '0%', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">20%{!! Form::radio('relacion_area', '20%', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">40%{!! Form::radio('relacion_area', '40%', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">60%{!! Form::radio('relacion_area', '60%', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">80%{!! Form::radio('relacion_area', '80%', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">100%{!! Form::radio('relacion_area', '100%', false, ['class' => 'mr-7 ml-3']) !!}</span>
+
+                                        <label class="pr-10 col-span-4">III.12  Datos de la empresa u organismo:</label>
+                                        <span>ORGANISMO:</span>
+                                        <span class="col-span-1">Público{!! Form::radio('organismo', 'Público', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Privado{!! Form::radio('organismo', 'Privado', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Social{!! Form::radio('organismo', 'Social', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <span class="col-span-4">Giro o actividad principal de la empresa u organismo:
+                                        {!! Form::text('giro', '', ['style' => 'width: 65%']) !!}</span>
+                                        
+                                        <span class="col-span-4">Razón Social:
+                                        {!! Form::text('razon_social', '', ['style' => 'width: 89%']) !!}</span>
+                                        
+                                        <span class="col-span-4">Domicilio:
+                                        {!! Form::text('domicilio', '', ['style' => 'width: 91%', 'placeholder' => 'Calle Número Colonia C.P.']) !!}</span>
+                                        
+                                        <span class="col-span-1">Ciudad:
+                                        {!! Form::text('ciudad', '', ['style' => 'width: 50%']) !!}</span>
+                                        
+                                        <span class="col-span-1">Municipio:
+                                        {!! Form::text('municipio', '', ['style' => 'width: 50%']) !!}</span>
+                                        
+                                        <span class="col-span-1">Estado:
+                                        {!! Form::text('estado', '', ['style' => 'width: 50%']) !!}</span>
+                                        
+                                        <div class="col-span-1"></div>
+                                        <span class="col-span-1 self-center items-center">Contactos:</span>
+                                        <span class="col-span-1">{!! Form::number('telefono', '', ['placeholder' => 'Telefono']) !!}</span>
+                                        <span class="col-span-1">{!! Form::number('fax', '', ['placeholder' => 'Fax']) !!}</span>
+                                        <span class="col-span-1">{!! Form::text('email', '', ['placeholder' => 'E-mail']) !!}</span>
+                                        
+                                        <span class="col-span-3">Página Web:
+                                        {!! Form::text('pagina_web', '', ['style' => 'width: 48%']) !!}</span>
+                                        
+                                        <span class="col-span-4">Nombre y Puesto del Jefe Inmediato:
+                                        {!! Form::text('jefe', '', ['style' => 'width: 75%']) !!}</span>
+    
+                                        <label class="pr-10 col-span-4">III.13  Sector Económico de la Empresa u Organización:</label>
+                                        <span class="col-span-4">SECTOR PRIMARIO:</span>
+                                        <span class="col-span-1">Agroindustria{!! Form::radio('sector_primario', 'Agroindustria', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Pesquero{!! Form::radio('sector_primario', 'Pesquero', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Minero{!! Form::radio('sector_primario', 'Minero', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Otros{!! Form::radio('sector_primario', 'Otros', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <span class="col-span-4">SECTOR SECUNDARIO:</span>
+                                        <span class="col-span-1">Industrial{!! Form::radio('sector_secundario', 'Industrial', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Construcción{!! Form::radio('sector_secundario', 'Construcción', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Petrolero{!! Form::radio('sector_secundario', 'Petrolero', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Otros{!! Form::radio('sector_secundario', 'Otros', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <span class="col-span-4">SECTOR TERCIARIO:</span>
+                                        <span class="col-span-1">Educativo{!! Form::radio('sector_terciario', 'Educativo', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Turismo{!! Form::radio('sector_terciario', 'Turismo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Comercio{!! Form::radio('sector_terciario', 'Comercio', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Servicios Financieros{!! Form::radio('sector_terciario', 'Servicios Financieros', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Otros{!! Form::radio('sector_terciario', 'Otros', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        
+                                        <label class="pr-10 col-span-4">III.14  Tamaño de la empresa u organización:</label>
+                                        <span class="col-span-1">Microempresa (1-30){!! Form::radio('tamanio_empresa', 'Microempresa (1-30)', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Pequeña (31-100){!! Form::radio('tamanio_empresa', 'Pequeña (31-100)', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Mediana (101-500){!! Form::radio('tamanio_empresa', 'Mediana (101-500)', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Grande (más de 500){!! Form::radio('tamanio_empresa', 'Grande (más de 500)', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                    </div>
+                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @break
+
+                                @case(4)
+                                <div>
+                                    <h1 class="text-xl">
+                                        IV. DESEMPEÑO PROFESIONAL DE LOS EGRESADOS
+                                        <span class="text-base">(COHERENCIA ENTRE LA FORMACIÓN Y EL TIPO DE EMPLEO)</span>
+                                    </h1>
+                                    <h1 class="text-lg">Marcar los campos que correspondan a su trayectoria profesional.</h1>
+
+                                    {!! Form::open(['route' => ['egresado.form.modulo3'], 'method' => 'post', 'class' => 'mt-5']) !!}
+                                    <div class="grid grid-cols-4 gap-4">
+                                        <label class="pr-10 col-span-4">IV.1   Eficiencia para realizar las actividades laborales, en relación con su formación académica: </label> <x-input-error :messages="$errors->get('actividad')"/>
+                                        <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', true, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Eficiente{!! Form::radio('eficiencia', 'Eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Poco eficiente{!! Form::radio('eficiencia', 'Poco eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                    </div>
+                                    <div class="grid grid-cols-4 gap-4">
+                                        
+                                    </div>
+                                    {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 mb-5 ml-5']) !!}
                                     {!! Form::close() !!}
                                 </div>
                                 @break

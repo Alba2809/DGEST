@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_control_egresado');
             $table->string('org_sociales');
             $table->string('org_profesionales');
-            $table->integer('org_egresados');
+            $table->string('org_egresados');
             $table->timestamps();
         });
     }

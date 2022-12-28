@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/egresado/modulo1', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo1');
     Route::post('/egresado/modulo2', [EgresadoController::class, 'modulo2'])->name('egresado.form.modulo2');
-    Route::post('/egresado/modulo3', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo3');
+    Route::post('/egresado/modulo3', [EgresadoController::class, 'modulo3'])->name('egresado.form.modulo3');
     Route::post('/egresado/modulo4', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo4');
     Route::post('/egresado/modulo5', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo5');
     Route::post('/egresado/modulo6', [EgresadoController::class, 'modulo1'])->name('egresado.form.modulo6');

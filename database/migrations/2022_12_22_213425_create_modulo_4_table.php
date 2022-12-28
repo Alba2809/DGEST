@@ -16,19 +16,19 @@ return new class extends Migration
         Schema::create('modulo_4', function (Blueprint $table) {
             $table->id();
             $table->string('no_control_egresado');
-            $table->integer('eficiencia');
-            $table->integer('formacion_academica');
-            $table->integer('utilidad_residencias');
-            $table->integer('campo');
-            $table->integer('titulacion');
-            $table->integer('experiencia_laboral');
-            $table->integer('competencia_laboral');
-            $table->integer('institucion_egreso');
-            $table->integer('conocimientos_idiomas');
-            $table->integer('referencias');
-            $table->integer('personalidad');
-            $table->integer('liderazgo');
-            $table->integer('otros');
+            $table->string('eficiencia');
+            $table->string('formacion_academica');
+            $table->string('utilidad_residencias');
+            $table->string('campo');
+            $table->string('titulacion');
+            $table->string('experiencia_laboral');
+            $table->string('competencia_laboral');
+            $table->string('institucion_egreso');
+            $table->string('conocimientos_idiomas');
+            $table->string('referencias');
+            $table->string('personalidad');
+            $table->string('liderazgo');
+            $table->string('otros');
             $table->timestamps();
         });
     }

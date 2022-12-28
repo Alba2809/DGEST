@@ -189,6 +189,108 @@ class EgresadoController extends Controller
 
     }
 
+    public function modulo3(Request $request)
+    {
+        $egresado = Egresado::where('email', Auth::user()->email)->first();
+
+        $mensajes = [
+            'required' => 'El campo :attribute es obligatorio.',
+            'same'    => 'The :attribute and :other must match.',
+            'size'    => 'El campo :attribute debe ser de :size.',
+            'between' => 'The :attribute value :input is not between :min - :max.',
+            'in'      => 'The :attribute must be one of the following types: :values',
+        ];
+        
+        $reglas = [
+            'actividad' => 'required',
+        ];
+
+        $validar = Validator::make($request->all(), $reglas, $mensajes);
+
+        if($validar->fails()){
+            return back()->withErrors($validar);
+        }
+
+        //se seleccionó alguna opción de la primera pregunta
+        $modulo = new Modulo3Egresado();
+        $modulo->no_control_egresado = $egresado->no_control_egresado;
+        $modulo->actividad = $request->actividad;
+        /* if($request->actividad == 'No estudia ni trabaja'){
+        } */
+        if ($request->actividad == 'Estudia' || $request->actividad == 'Estudia y Trabaja') {
+            $modulo->estudia = $request->estudia;
+            
+            if($request->estudia == 'Otra'){
+                $modulo->estudia = $request->estudia.': '.$request->OtraTexto;
+            } else { $modulo->estudia = $request->estudia; }
+            
+            $modulo->especialidad_inst = $request->especialidad_inst;
+        }
+        if ($request->actividad == 'Trabaja' || $request->actividad == 'Estudia y Trabaja'){
+            $modulo->trabaja = $request->trabaja;
+            
+            if($request->medio == 'Otra'){
+                $modulo->medio = $request->medio.': '.$request->MedioTexto;
+            } else { $modulo->medio = $request->medio; }
+            
+            if($request->requisitos_contrato == 'Otra'){
+                $modulo->requisitos_contrato = $request->requisitos_contrato.' : '.$request->RequisitoTexto;
+            } else { $modulo->requisitos_contrato = $request->requisitos_contrato; }
+            
+            if($request->idiomas == 'Otra'){
+                $modulo->idiomas = $request->idiomas.': '.$request->IdiomaTexto;
+            } else { $modulo->idiomas = $request->idiomas; }
+
+            $modulo->proporcion_idiomas = 'Hablar: '.$request->Hablar.'%  --  Escribir: '.$request->Escribir.'%  --  Leer: '.$request->Leer.'%  --  Escuchar: '.$request->Escuchar.'%';
+            $modulo->antiguedad = $request->antiguedad;
+            $modulo->anio_egreso = $request->anio_egreso;
+            $modulo->salario_minimo = $request->salario_minimo;
+            $modulo->nivel_jerarquico = $request->nivel_jerarquico;
+            
+            if($request->condicion_trabajo == 'Otra'){
+                $modulo->condicion_trabajo = $request->condicion_trabajo.': '.$request->CondicionTexto;
+            } else { $modulo->condicion_trabajo = $request->condicion_trabajo; }
+
+            $modulo->relacion_area = $request->relacion_area;
+            $modulo->organismo = $request->organismo;
+            $modulo->giro = $request->giro;
+            $modulo->razon_social = $request->razon_social;
+            $modulo->domicilio = $request->domicilio;
+            $modulo->ciudad = $request->ciudad;
+            $modulo->municipio = $request->municipio;
+            $modulo->estado = $request->estado;
+            $modulo->telefono = $request->telefono;
+            $modulo->fax = $request->fax;
+            $modulo->email = $request->email;
+            $modulo->pagina_web = $request->pagina_web;
+            $modulo->jefe = $request->jefe;
+            $modulo->sector_primario = $request->sector_primario;
+            $modulo->sector_secundario = $request->sector_secundario;
+            $modulo->sector_terciario = $request->sector_terciario;
+            $modulo->tamanio_empresa = $request->tamanio_empresa;
+        }
+        //Si no hubo errores se continua con el registro del modulo en la BD
+        $modulo->save();
+
+        $existe = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)->first();
+
+        if($existe){
+            $afectado = FormularioEgresado::where('no_control_egresado', $egresado->no_control_egresado)
+            ->update(['modulo_3' => $modulo->id]);
+        }else{
+            $formulario = new FormularioEgresado();
+            $formulario->no_control_egresado = $egresado->no_control_egresado;
+            $formulario->modulo_3 = $modulo->id;
+            $formulario->save();
+
+            $afectado = $egresado = Egresado::where('email', Auth::user()->email)
+                ->update(['form_hecho' => 1]);
+        }
+
+        return back();
+
+    }
+
     public function store(Request $request)
     {
         return $request;
