@@ -107,27 +107,27 @@
                                             {!! Form::open(['route' => ['egresado.form.modulo1'], 'method' => 'post', 'class' => 'grid grid-cols-4 gap-4']) !!}
                                                 <label class="col-span-3">
                                                     Nombre:
-                                                    {!! Form::text('Nombre', $egresado->nombre, ['disabled', 'placeholder' => 'Paterno Materno Nombre(s)', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('Nombre', $egresado->nombre, ['disabled', 'placeholder' => 'Paterno Materno Nombre(s)', 'class' => 'disabled:opacity-75  px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label>
                                                     No. de control:
-                                                    {!! Form::text('NoControl', $egresado->no_control_egresado, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('NoControl', $egresado->no_control_egresado, ['disabled', 'class' => 'disabled:opacity-75  px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     Fecha de nacimiento:
-                                                    {!! Form::text('FechaNac', $egresado->fecha_nac, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('FechaNac', $egresado->fecha_nac, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     CURP:
-                                                    {!! Form::text('Curp', $egresado->curp, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('Curp', $egresado->curp, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     <span class="pr-10">Sexo:</span>
                                                     @if ($egresado->sexo == 0)
-                                                        <span class="pr-3">Hombre</span>{!! Form::radio('Sexo', 'Hombre', true, ['disabled', 'class' => 'mr-7']) !!} 
+                                                        <span class="pr-3">Hombre</span>{!! Form::radio('Sexo', 'Hombre', true, ['disabled', 'class' => 'disabled:opacity-75 mr-7']) !!} 
                                                         <span class="pr-3">Mujer</span>{!! Form::radio('Sexo', 'Mujer', false, ['disabled', ]) !!} 
                                                     @else
-                                                        <span class="pr-3">Hombre</span>{!! Form::radio('Sexo', 'Hombre', false, ['disabled', 'class' => 'mr-7']) !!}
+                                                        <span class="pr-3">Hombre</span>{!! Form::radio('Sexo', 'Hombre', false, ['disabled', 'class' => 'disabled:opacity-75 mr-7']) !!}
                                                         <span class="pr-3">Mujer</span>{!! Form::radio('Sexo', 'Mujer', true, ['disabled', ]) !!}
                                                     @endif
                                                 </label>
@@ -477,7 +477,7 @@
                                             <span class="justify-self-center">5</span>
                                         </div>
                                     </div>
-                                    <div class=" divide-y divide-slate-200">
+                                    <div class="divide-y divide-slate-200">
                                         <div class="grid grid-cols-4 gap-4">
                                             <span class="col-span-3 h-10 flex items-center">1. Área o Campo de Estudio</span>
                                             <div class="grid grid-cols-5 gap-5">

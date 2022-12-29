@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmpresaMailable;
 use App\Models\Egresado;
+use App\Models\Empresa;
 use App\Models\FormularioEgresado;
 use App\Models\Modulo1Egresado;
 use App\Models\Modulo2Egresado;
@@ -12,8 +14,10 @@ use App\Models\Modulo5Egresado;
 use App\Models\Modulo6Egresado;
 use App\Models\Modulo7Egresado;
 use App\Models\MuestraEgresado;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EgresadoController extends Controller
@@ -287,6 +291,36 @@ class EgresadoController extends Controller
             $afectado = $egresado = Egresado::where('email', Auth::user()->email)
                 ->update(['form_hecho' => 1]);
         }
+
+        //se guarda he envia el correo a la empresa ingresada, siempre y cuando no se le haya enviado ya uno (esto es, cuando ya esta registrado)
+        //se tomará el correo como el indicador de que es una empresa nueva
+        $empresa_existe = Empresa::where('email', $modulo->email)->first();
+
+        if(!$empresa_existe){
+            $empresa = new Empresa();
+            $empresa->email = $modulo->email;
+            $empresa->nombre = $modulo->jefe;
+            $empresa->estado = 0;
+
+            $empresa->save();
+            
+            $user = User::where('email', $empresa->email)->first();
+    
+            if (!$user) {
+                $user = new User();
+                $user->name = $empresa->nombre;
+                $user->email = $empresa->email;
+                $user->password = bcrypt('12345678');
+                
+                $user->save();
+                
+                $user->roles()->sync([4]);
+    
+            }
+    
+            Mail::to($user->email)->send(new EmpresaMailable($empresa));
+        }
+
 
         return back();
 

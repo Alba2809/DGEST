@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email_empresa');
             $table->string('carreras');
             $table->string('mando');
+            $table->timestamps();
         });
     }
 

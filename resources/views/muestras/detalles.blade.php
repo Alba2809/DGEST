@@ -100,7 +100,14 @@
                     
                     {{-- Se muestran las gráficas si se ha obtenido al menos una respuesta --}}
                     @if ($porc_obtenido)
-                        Graficas
+                        <div class="flex mt-10">
+                            <div class="w-1/2">
+                                {!! $chart->container() !!}
+                            </div>
+                            <div class="w-1/2"></div>
+                        </div>
+                        
+                        {!! $chart->script() !!}
                     @else
                         <h1 class="text-base underline">Sin respuestas.</h1>
                     @endif

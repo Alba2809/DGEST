@@ -32,10 +32,17 @@
                             {{ __('Usuarios') }}
                         </x-nav-link>                        
                     @endcan
+                    
                     @can('egresado.form.index')
                         <x-nav-link :href="route('egresado.form.index')" :active="request()->routeIs('egresado.form.index')">
                             {{ __('Formuario Egresado') }}
                         </x-nav-link>                        
+                    @endcan
+
+                    <x-nav-link :href="route('empresa.form.index')" :active="request()->routeIs('empresa.form.index')">
+                        {{ __('Formuario Empresa') }}
+                    </x-nav-link>                        
+                    @can('empresa.form.index')
                     @endcan
                 </div>
             </div>

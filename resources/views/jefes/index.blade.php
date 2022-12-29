@@ -48,40 +48,48 @@
                         {!! Form::close() !!}
                     </div>
                     <div class="mt-4 -mb-3 basis-1/4">
-                        <div class="not-prose relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800">
-                            <div class="relative rounded-xl overflow-auto">
-                                <div class="shadow-sm overflow-hidden my-8">
+                        <div class="bg-slate-50 rounded-xl dark:bg-slate-800">
+                            <div class="rounded-xl overflow-auto">
+                                <div class="shadow-sm overflow-y my-8">
                                     {!! Form::open(['route' => ['jefe.correo.enviar'], 'method' => 'post']) !!}
-                                        <table class="border-collapse table-auto w-full text-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">No.</th>
-                                                    <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">Egresado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="dark:bg-slate-800">
-                                                @if (session('egresados'))
-                                                    @foreach (session('egresados') as $egresado)
-                                                        <tr>
-                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                                                                {{$loop->index + 1}}
-                                                            </td>
-                                                            <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                                                                <input name="NoControl[]" class="border-none dark:bg-slate-800" type="text" readonly="readonly" value={{$egresado->no_control_egresado}}>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
-                                            </tbody>
-                                        </table>
+                                        <div class="overflow-auto h-72 relative max-w-sm mx-auto bg-white dark:bg-slate-800 dark:highlight-white/5 rounded-xl">
+                                            <table class="border-collapse table-auto w-full text-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">No.</th>
+                                                        <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-center">Egresado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="dark:bg-slate-800">
+                                                    @if (session('egresados'))
+                                                        @foreach (session('egresados') as $egresado)
+                                                            <tr>
+                                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                                    {{$loop->index + 1}}
+                                                                </td>
+                                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
+                                                                    <input name="NoControl[]" class="border-none dark:bg-slate-800 text-center" type="text" readonly="readonly" value={{$egresado->no_control_egresado}}>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         {!! Form::hidden('Anio', session('anioSelec'), ['id' => 'Anio']) !!}
                                         {!! Form::hidden('Total', session('numEgresados'), ['id' => 'total']) !!}
                                         {!! Form::hidden('Porcentaje', session('porcSelec'), ['id' => 'Porcentaje']) !!}
-                                        <div class="grid grid-cols-3 gap-4 place-items-center">
+                                        <div class="grid grid-cols-3 gap-4 place-items-center flex felx-col">
                                             <div></div>
                                             <div>
                                                 @if (session('egresados'))
-                                                    {!! Form::submit('Confirmar y Enviar Correos', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                                    @if(count(session('egresados')))
+                                                        {!! Form::submit('Confirmar y Enviar Correos', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
+                                                    @else
+                                                        <br><br>
+                                                    @endif
+                                                @else
+                                                    <br><br>
                                                 @endif
                                             </div>
                                             <div></div>

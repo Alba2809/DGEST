@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('empresa', function (Blueprint $table) {
+        Schema::create('formulario_empresa', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('nombre');
-            $table->bigInteger('estado')->nullable();
+            $table->string('email_empresa');
+            $table->bigInteger('modulo_a')->nullable();
+            $table->bigInteger('modulo_b')->nullable();
+            $table->bigInteger('modulo_c')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empresa');
+        Schema::dropIfExists('formulario_empresa');
     }
 };

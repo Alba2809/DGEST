@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\MuestraChart;
 use App\Mail\EgresadosMailable;
 use App\Models\Egresado;
 use App\Models\Jefe;
@@ -46,8 +47,36 @@ class MuestraController extends Controller
         $dias_transcurridos = $fecha_actual->diffInDays($fecha_inicial);
 
         $total = Egresado::where('anio_egreso', $muestra->anio)->count();
+        
+        //obtener valores de la grafica
+        $finalizados = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
+            ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
+            ->where('id_muestra', $muestra->id)
+            ->whereNotNull('formulario')
+            ->count();
 
-        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos', 'total'));
+        $proceso = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
+            ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
+            ->where('id_muestra', $muestra->id)
+            ->where('form_hecho', '1')
+            ->whereNull('formulario')
+            ->count();
+        
+        $sinempezar = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
+            ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
+            ->where('id_muestra', $muestra->id)
+            ->where('form_hecho', '0')
+            ->whereNull('formulario')
+            ->count();
+
+        //se muestran los charts/graficas con los resultados
+        $chart = new MuestraChart;
+        $chart->labels(['Finalizados', 'Sin empezar', 'En proceso']);
+        $chart->dataset('', 'pie', [$finalizados, $sinempezar, $proceso])->backgroundColor(['green', 'red', 'yellow']);
+        $chart->title('Resultados generales');
+        $chart->displayAxes(false);
+
+        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos', 'total', 'chart'));
     }
 
     public function edit(Muestra $muestra)

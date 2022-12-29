@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Egresado;
+use App\Models\Empresa;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,20 +10,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EgresadosMailable extends Mailable
+class EmpresaMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $egresado;
-
+    public $empresa;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Egresado $egresado)
+    public function __construct(Empresa $empresa)
     {
-        $this->egresado = $egresado;
+        $this->empresa = $empresa;
     }
 
     /**
@@ -34,7 +33,7 @@ class EgresadosMailable extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Formulario de seguimiento para egresados',
+            subject: 'Formulario de seguimiento para empresas',
         );
     }
 
@@ -46,7 +45,7 @@ class EgresadosMailable extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.egresados',
+            view: 'emails.empresas',
         );
     }
 
