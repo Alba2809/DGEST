@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('referencias');
             $table->string('personalidad');
             $table->string('liderazgo');
-            $table->string('otros');
+            $table->string('otros')->nullable();
             $table->timestamps();
         });
     }

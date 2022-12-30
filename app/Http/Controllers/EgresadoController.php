@@ -246,7 +246,11 @@ class EgresadoController extends Controller
                 $modulo->idiomas = $request->idiomas.': '.$request->IdiomaTexto;
             } else { $modulo->idiomas = $request->idiomas; }
 
-            $modulo->proporcion_idiomas = 'Hablar: '.$request->Hablar.'%  --  Escribir: '.$request->Escribir.'%  --  Leer: '.$request->Leer.'%  --  Escuchar: '.$request->Escuchar.'%';
+            $modulo->hablar = $request->Hablar;
+            $modulo->escribir = $request->Escribir;
+            $modulo->leer = $request->Leer;
+            $modulo->escuchar = $request->Escuchar;
+            
             $modulo->antiguedad = $request->antiguedad;
             $modulo->anio_egreso = $request->anio_egreso;
             $modulo->salario_minimo = $request->salario_minimo;
@@ -320,7 +324,6 @@ class EgresadoController extends Controller
     
             Mail::to($user->email)->send(new EmpresaMailable($empresa));
         }
-
 
         return back();
 
@@ -581,28 +584,4 @@ class EgresadoController extends Controller
         return back();
     }
 
-    public function store(Request $request)
-    {
-        return $request;
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 }

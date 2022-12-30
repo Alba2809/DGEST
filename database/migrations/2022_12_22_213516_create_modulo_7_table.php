@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('modulo_7', function (Blueprint $table) {
             $table->id();
             $table->string('no_control_egresado');
-            $table->text('comentarios');
+            $table->text('comentarios')->nullable();
             $table->timestamps();
         });
     }

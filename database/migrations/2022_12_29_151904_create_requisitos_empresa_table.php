@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('modulo_b', function (Blueprint $table) {
-            $table->id();
+        Schema::create('requisitos_empresa', function (Blueprint $table) {
             $table->string('email_empresa');
-            $table->string('no_profesionistas');
-            $table->string('funcion_prefil');
+            $table->string('requisito');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modulo_b');
+        Schema::dropIfExists('requisitos_empresa');
     }
 };

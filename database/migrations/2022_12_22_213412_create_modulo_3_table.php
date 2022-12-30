@@ -23,7 +23,10 @@ return new class extends Migration
             $table->string('medio')->nullable();
             $table->string('requisitos_contrato')->nullable();
             $table->string('idiomas')->nullable();
-            $table->string('proporcion_idiomas')->nullable();
+            $table->integer('hablar')->nullable();
+            $table->integer('escribir')->nullable();
+            $table->integer('leer')->nullable();
+            $table->integer('escuchar')->nullable();
             $table->string('antiguedad')->nullable();
             $table->string('anio_egreso')->nullable();
             $table->string('salario_minimo')->nullable();

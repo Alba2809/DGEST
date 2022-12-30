@@ -32,10 +32,10 @@ return new class extends Migration
             $table->string('analisis');
             $table->string('liderazgo');
             $table->string('adaptacion');
-            $table->string('otras');
+            $table->string('otras')->nullable();
             $table->string('desempeño_laboral');
-            $table->string('sugerencias_instituto');
-            $table->string('comentarios_sugerencias');
+            $table->text('sugerencias_instituto')->nullable();
+            $table->text('comentarios_sugerencias')->nullable();
             $table->timestamps();
         });
     }

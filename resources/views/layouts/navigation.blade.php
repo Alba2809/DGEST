@@ -15,34 +15,34 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Inicio') }}
                     </x-nav-link>
-                    @can('jefe.correo.index')
+                    @can('jefe.correo')
                         <x-nav-link :href="route('jefe.correo.index')" :active="request()->routeIs('jefe.correo.index')">
                             {{ __('Enviar correos') }}
                         </x-nav-link>
                     @endcan
 
-                    @can('jefe.muestra.index')
+                    @can('jefe.muestra')
                         <x-nav-link :href="route('jefe.muestra.index')" :active="request()->routeIs(['jefe.muestra.index', 'jefe.muestra.show'])">
                             {{ __('Muestras') }}
                         </x-nav-link>
                     @endcan
 
-                    @can('admin.usuarios.index')
+                    @can('admin.usuarios')
                         <x-nav-link :href="route('admin.usuarios.index')" :active="request()->routeIs('admin.usuarios.index')">
                             {{ __('Usuarios') }}
                         </x-nav-link>                        
                     @endcan
                     
-                    @can('egresado.form.index')
+                    @can('egresado.form')
                         <x-nav-link :href="route('egresado.form.index')" :active="request()->routeIs('egresado.form.index')">
                             {{ __('Formuario Egresado') }}
                         </x-nav-link>                        
                     @endcan
 
-                    <x-nav-link :href="route('empresa.form.index')" :active="request()->routeIs('empresa.form.index')">
-                        {{ __('Formuario Empresa') }}
-                    </x-nav-link>                        
-                    @can('empresa.form.index')
+                    @can('empresa.form')
+                        <x-nav-link :href="route('empresa.form.index')" :active="request()->routeIs('empresa.form.index')">
+                            {{ __('Formuario Empresa') }}
+                        </x-nav-link>
                     @endcan
                 </div>
             </div>

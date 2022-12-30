@@ -76,7 +76,7 @@ class MuestraController extends Controller
         $chart->title('Resultados generales');
         $chart->displayAxes(false);
 
-        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos', 'total', 'chart'));
+        return view('muestras.detalles', compact('muestra', 'egresados', 'porc_obtenido', 'dias_transcurridos', 'total', 'chart', 'proceso'));
     }
 
     public function edit(Muestra $muestra)

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('egresados_jerarquia', function (Blueprint $table) {
             $table->string('email_empresa');
             $table->string('carreras');
+            $table->integer('cantidad');
             $table->string('mando');
             $table->timestamps();
         });

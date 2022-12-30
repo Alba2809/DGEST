@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('tel_casa');
             $table->string('lenguaje_ext');
             $table->string('titulado');
-            $table->string('manejo_paquetes');
+            $table->string('manejo_paquetes')->nullable();
             $table->timestamps();
         });
     }

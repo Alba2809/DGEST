@@ -99,7 +99,7 @@
                     </div>
                     
                     {{-- Se muestran las gráficas si se ha obtenido al menos una respuesta --}}
-                    @if ($porc_obtenido)
+                    @if ($proceso)
                         <div class="flex mt-10">
                             <div class="w-1/2">
                                 {!! $chart->container() !!}
