@@ -20,11 +20,6 @@ use Throwable;
 
 class EmpresaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         Carbon::setLocale('es');
@@ -57,29 +52,35 @@ class EmpresaController extends Controller
 
     public function moduloa(Request $request)
     {
-        ////return $request;
-        //$egresado = Egresado::where('email', Auth::user()->email)->first();
         $empresa_mail = Auth::user()->email;
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó :value.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
-            'min'      => 'El campo :attribute debe tener al menos :min caracteres.',
-            'max'      => 'El campo :attribute debe tener maximo :max caracteres.',
+            'between' => 'El :input debe de ser de :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
-            'nombre' => 'required',
+            'nombre' => 'required|max:255',
+            'domicilio' => 'required|max:255',
+            'ciudad' => 'required|max:255',
+            'municipio' => 'required|max:255',
+            'estado' => 'required|max:255',
+            'telefono' => 'between:10,10',
+            'actividad_economicaotra' => 'required_if:actividad_economica,Otra|max:255',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         $modulo = new ModuloAEmpresa();
@@ -125,24 +126,39 @@ class EmpresaController extends Controller
         $empresa_mail = Auth::user()->email;
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Seleccione al menos una opción.',
+            'required_if' => 'El campo es obligatorio si seleccionó Otro.',
+            'required_without' => 'Seleccione al menos una opción.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
-            'min'      => 'El campo :attribute debe tener al menos :min caracteres.',
-            'max'      => 'El campo :attribute debe tener maximo :max caracteres.',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
-            'no_profesionistas' => 'required',
+            'mandootra1' => 'required_if:mando1,Otra',
+            'mandootra2' => 'required_if:mando2,Otra',
+            'mandootra3' => 'required_if:mando3,Otra',
+            'mandootra4' => 'required_if:mando4,Otra',
+            'mandootra5' => 'required_if:mando5,Otra',
+            'mandootra6' => 'required_if:mando6,Otra',
+            'mandootra7' => 'required_if:mando7,Otra',
+            'mandootra8' => 'required_if:mando8,Otra',
+            'mandootra9' => 'required_if:mando9,Otra',
+            'mandootra10' => 'required_if:mando10,Otra',
+            'requisitos' => 'required_without:requisitostexto',
+            'requisitostexto' => 'max:255',
+            'carreras' => 'required',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
-
+        //dd($request->all(), $validar->errors());
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         $modulo = new ModuloBEmpresa();
@@ -294,24 +310,28 @@ class EmpresaController extends Controller
         $empresa_mail = Auth::user()->email;
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó :value.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
-            'min'      => 'El campo :attribute debe tener al menos :min caracteres.',
-            'max'      => 'El campo :attribute debe tener maximo :max caracteres.',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
+            'otra_competencia' => 'max:255',
             'sugerencias_instituto' => 'max:60000',
+            'comentarios_sugerencias' => 'max:60000',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         //sin fallos...continua con el registro del modulo

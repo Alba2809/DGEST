@@ -69,7 +69,10 @@ class JefeController extends Controller
     }
 
     public function enviar(Request $request){
-        
+
+        if (!$request)
+            return back();
+
         $jefe = Jefe::where('email', Auth::user()->email)->first();
 
         $muestra = new Muestra();

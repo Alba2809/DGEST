@@ -81,25 +81,34 @@ class EgresadoController extends Controller
 
     public function modulo1(Request $request)
     {
-        
+        //dd($request->all());
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'El campo :attribute debe ser uno de los siguientes types: :values',
+            'max'      => 'El campo :attribute debe tener máximo :max caracteres.',
+            'min'      => 'El campo :attribute debe tener mínimo :min caracteres.',
         ];
         
         $reglas = [
             'Domicilio' => 'required|max:255',
+            'Ciudad' => 'required|max:255',
+            'Municipio' => 'required|max:255',
+            'Estado' => 'required|max:255',
+            'Telefono' => 'required|max:10|min:10',
+            'TelefonoCasa' => 'max:15',
+            'IdiomaOtro' => 'max:255',
+            'ManejoPaquetes' => 'max:255',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar);
+            return back()->withErrors($validar)->withInput();
         }
 
         //Si no hubo errores se continua con el registro del modulo
@@ -112,7 +121,12 @@ class EgresadoController extends Controller
         $modulo->estado = $request->Estado;
         $modulo->telefono = $request->Telefono;
         $modulo->tel_casa = $request->TelefonoCasa;
-        $modulo->lenguaje_ext = 'Ingles: '.$request->IdiomaIngles.' '.$request->IdiomaOtro;
+        $modulo->ingles_dominio = $request->IdiomaIngles;
+
+        if($request->IdiomaOtro){
+            $modulo->lenguaje_otro = $request->IdiomaOtro.': '.$request->PorcentajeOtro;
+        }
+
         $modulo->titulado = $request->Titulado;
         $modulo->manejo_paquetes = $request->ManejoPaquetes;
 
@@ -140,30 +154,6 @@ class EgresadoController extends Controller
     {
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
-        $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
-            'same'    => 'The :attribute and :other must match.',
-            'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
-        ];
-        
-        $reglas = [
-            'calidad_docentes' => 'required',
-            'plan_estudios' => 'required',
-            'part_proyectos' => 'required',
-            'enfasis_investigacion' => 'required',
-            'satisfaccion_cond' => 'required',
-            'experiencia_residencia' => 'required',
-        ];
-
-        $validar = Validator::make($request->all(), $reglas, $mensajes);
-
-        if($validar->fails()){
-            return back()->withErrors($validar);
-        }
-
-        //Si no hubo errores se continua con el registro del modulo
         $modulo = new Modulo2Egresado();
         $modulo->no_control_egresado = $egresado->no_control_egresado;
         $modulo->calidad_docentes = $request->calidad_docentes;
@@ -196,24 +186,55 @@ class EgresadoController extends Controller
 
     public function modulo3(Request $request)
     {
+       
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó esta opción.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
-        
-        $reglas = [
-            'actividad' => 'required',
-        ];
+
+        $reglas = [];
+
+        if($request->actividad == 'Estudia' || $request->actividad == 'Estudia y Trabaja'){
+            $reglas = array_merge($reglas , [
+                'OtraTexto' => 'max:255|required_if:estudia,Otra',
+                'especialidad_inst' => 'max:255|required',
+            ]);
+        }
+        if($request->actividad == 'Trabaja' || $request->actividad == 'Estudia y Trabaja'){
+            $reglas = array_merge($reglas , [
+                'MedioTexto' => 'max:255|required_if:medio,Otra',
+                'RequisitoTexto' => 'max:255|required_if:requisitos_contrato,Otra',
+                'IdiomaTexto' => 'max:255|required_if:idiomas,Otra',
+                'CondicionTexto' => 'max:255|required_if:condicion_trabajo,Otra',
+                'giro' => 'max:255|required',
+                'razon_social' => 'max:255|required',
+                'domicilio' => 'max:255|required',
+                'ciudad' => 'max:255|required',
+                'municipio' => 'max:255|required',
+                'estado' => 'max:255|required',
+                'telefono' => 'max:10|min:10',
+                'fax' => 'max:255',
+                'email' => 'max:255|required|email:rfc,dns',
+                'pagina_web' => 'max:255',
+                'jefe' => 'max:255|required',
+            ]);
+        }
+
+        //dd($request->all(), $reglas);
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar);
+            return back()->withErrors($validar)->withInput();
         }
 
         //se seleccionó alguna opción de la primera pregunta
@@ -335,22 +356,26 @@ class EgresadoController extends Controller
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó esta opción.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
-            'eficiencia' => 'required',
+            'AspectoTexto' => 'max:255',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         //se seleccionó alguna opción de la primera pregunta
@@ -404,22 +429,29 @@ class EgresadoController extends Controller
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó :value.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
-            'actualizacion' => 'required',
+            'actualizaciontexto' => 'required_if:actualizacion,Si|max:255',
+            'posgradotexto' => 'required_if:posgrado,Si|max:255',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
+        //dd($request->all());
+
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         //se seleccionó alguna opción de la primera pregunta
@@ -465,22 +497,27 @@ class EgresadoController extends Controller
         $egresado = Egresado::where('email', Auth::user()->email)->first();
 
         $mensajes = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'Este campo es obligatorio.',
+            'required_if' => 'El campo es obligatorio si seleccionó :value.',
             'same'    => 'The :attribute and :other must match.',
             'size'    => 'El campo :attribute debe ser de :size.',
-            'between' => 'The :attribute value :input is not between :min - :max.',
-            'in'      => 'The :attribute must be one of the following types: :values',
+            'between' => 'El valor :input de :attribute no está entre :min - :max.',
+            'in'      => 'Este campo debe ser uno de los siguientes types: :values',
+            'max'      => 'Este campo debe tener máximo :max caracteres.',
+            'min'      => 'Este campo debe tener mínimo :min caracteres.',
+            'email:rfc,dns'      => 'El e-mail no es válido.',
         ];
         
         //validaciones
         $reglas = [
-            'org_sociales' => 'required',
+            'org_socialestexto' => 'required_if:org_sociales,Si|max:255',
+            'org_profesionalestexto' => 'required_if:org_profesionales,Si|max:255',
         ];
 
         $validar = Validator::make($request->all(), $reglas, $mensajes);
 
         if($validar->fails()){
-            return back()->withErrors($validar); //si hay fallos, se regresa al formulario con los errores
+            return back()->withErrors($validar)->withInput(); //si hay fallos, se regresa al formulario con los errores
         }
 
         //se seleccionó alguna opción de la primera pregunta

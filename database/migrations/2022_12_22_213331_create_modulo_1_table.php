@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('municipio');
             $table->string('estado');
             $table->string('telefono');
-            $table->string('tel_casa');
-            $table->string('lenguaje_ext');
+            $table->string('tel_casa')->nullable();
+            $table->integer('ingles_dominio');
+            $table->string('lenguaje_otro')->nullable();
             $table->string('titulado');
             $table->string('manejo_paquetes')->nullable();
             $table->timestamps();

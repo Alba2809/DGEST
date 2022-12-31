@@ -28,6 +28,7 @@
             else document.getElementById('trabajaopciones').classList.add("hidden");
         }
     }
+    
     function otratexto() {
         if (document.getElementById('Otra').checked) {
             document.getElementById('OtraTexto').classList.remove("hidden");
@@ -107,11 +108,11 @@
                                             {!! Form::open(['route' => ['egresado.form.modulo1'], 'method' => 'post', 'class' => 'grid grid-cols-4 gap-4']) !!}
                                                 <label class="col-span-3">
                                                     Nombre:
-                                                    {!! Form::text('Nombre', $egresado->nombre, ['disabled', 'placeholder' => 'Paterno Materno Nombre(s)', 'class' => 'disabled:opacity-75  px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('Nombre', $egresado->nombre, ['disabled', 'placeholder' => 'Paterno Materno Nombre(s)', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label>
                                                     No. de control:
-                                                    {!! Form::text('NoControl', $egresado->no_control_egresado, ['disabled', 'class' => 'disabled:opacity-75  px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('NoControl', $egresado->no_control_egresado, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     Fecha de nacimiento:
@@ -131,48 +132,48 @@
                                                         <span class="pr-3">Mujer</span>{!! Form::radio('Sexo', 'Mujer', true, ['disabled', ]) !!}
                                                     @endif
                                                 </label>
-                                                <label class="col-span-2">
+                                                <span class="col-span-2">
                                                     <span class="pr-10">Estado civil:</span>
-                                                    <span class="pr-3">Soltero(a)</span>{!! Form::radio('EstadoCivil', 'Soltero', true, ['class' => 'mr-7']) !!} 
-                                                    <span class="pr-3">Casado(a)</span>{!! Form::radio('EstadoCivil', 'Casado', false, ['class' => 'mr-7']) !!} 
-                                                    <span>Otro</span>{!! Form::radio('EstadoCivil', 'Otro', false, ['']) !!} 
-                                                </label>
+                                                    <span class="pr-3"><label for="Soltero(a)">Soltero(a)</label></span>{!! Form::radio('EstadoCivil', 'Soltero', true, ['class' => 'mr-7', 'id' => 'Soltero(a)']) !!} 
+                                                    <span class="pr-3"><label for="Casado(a)">Casado(a)</label></span>{!! Form::radio('EstadoCivil', 'Casado', false, ['class' => 'mr-7', 'id' => 'Casado(a)']) !!} 
+                                                    <span><label for="OtroEstado">Otro</label></span>{!! Form::radio('EstadoCivil', 'Otro', false, ['class' => 'ml-3', 'id' => 'OtroEstado']) !!} 
+                                                </span>
 
                                                 <label class="col-span-4">
-                                                    Domicilio:  <x-input-error :messages="$errors->get('Domicilio')"/>
-                                                    {!! Form::text('Domicilio', '', ['placeholder' => 'Calle No. Colonia C.P.', 'class' => "px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500"]) !!}
+                                                    Domicilio:
+                                                    {!! Form::text('Domicilio', '', ['placeholder' => ''.($errors->get('Domicilio') ? ''.implode(' | ',$errors->get('Domicilio')) : 'Calle No. Colonia C.P.'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('Domicilio') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-2">
-                                                    Ciudad:
-                                                    {!! Form::text('Ciudad', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    Ciudad: 
+                                                    {!! Form::text('Ciudad', '', ['placeholder' => ''.($errors->get('Ciudad') ? ''.implode(' | ',$errors->get('Ciudad')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('Ciudad') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-1">
-                                                    Municipio:
-                                                    {!! Form::text('Municipio', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    Municipio: 
+                                                    {!! Form::text('Municipio', '', ['placeholder' => ''.($errors->get('Municipio') ? ''.implode(' | ',$errors->get('Municipio')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('Municipio') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-1">
-                                                    Estado:
-                                                    {!! Form::text('Estado', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    Estado: 
+                                                    {!! Form::text('Estado', '', ['placeholder' => ''.($errors->get('Estado') ? ''.implode(' | ',$errors->get('Estado')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('Estado') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-1">
-                                                    Telefono:
-                                                    {!! Form::number('Telefono', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    Telefono: 
+                                                    {!! Form::number('Telefono', '', ['placeholder' => ''.($errors->get('Telefono') ? ''.implode(' | ',$errors->get('Telefono')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('Telefono') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-1">
                                                     Telefono de casa:
-                                                    {!! Form::number('TelefonoCasa', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::number('TelefonoCasa', '', ['placeholder' => ''.($errors->get('TelefonoCasa') ? ''.implode(' | ',$errors->get('TelefonoCasa')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('TelefonoCasa') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     E-mail:
-                                                    {!! Form::text('Email', $egresado->email, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('Email', $egresado->email, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-4">
                                                     Carrera de Egreso y especialidad:
-                                                    {!! Form::text('CarreraEspecialidad', $egresado->carrera.' - '.$egresado->especialidad, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('CarreraEspecialidad', $egresado->carrera.' - '.$egresado->especialidad, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-2">
                                                     Mes y Año de egreso:
-                                                    {!! Form::text('MesAnio', $egresado->mes_egreso.' / '.$egresado->anio_egreso, ['disabled', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('MesAnio', $egresado->mes_egreso.' / '.$egresado->anio_egreso, ['disabled', 'class' => 'disabled:opacity-75 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
                                                 </label>
                                                 <label class="col-span-1">
                                                 </label>
@@ -181,17 +182,20 @@
                                                     <span class="pr-3">Si</span>{!! Form::radio('Titulado', 'Si', true, ['class' => 'mr-7']) !!} 
                                                     <span class="pr-3">No</span>{!! Form::radio('Titulado', 'No', false, ['']) !!}
                                                 </label>
+                                                <span class="col-span-4">
+                                                    Porcentaje de dominio de idioma extranjero:
+                                                </span>
                                                 <label class="col-span-2">
-                                                    Dominio de idioma extranjero:
-                                                    <span>Ingles</span>{!! Form::number('IdiomaIngles', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    <span>Ingles</span> {!! Form::select('IdiomaIngles', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}    
                                                 </label>
-                                                <label class="col-span-2">
+                                                <label class="col-span-2 flex items-center">
                                                     Otro:
-                                                    {!! Form::number('IdiomaOtro', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    {!! Form::text('IdiomaOtro', '', ['placeholder' => ''.($errors->get('IdiomaOtro') ? ''.implode(' | ',$errors->get('IdiomaOtro')) : 'Nombre'), 'class' => 'ml-2 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('IdiomaOtro') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
+                                                    {!! Form::select('PorcentajeOtro', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}    
                                                 </label>
                                                 <label class="col-span-4">
-                                                    Manejo de paquetes computacionales (especificar):
-                                                    {!! Form::text('ManejoPaquetes', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                                    Manejo de paquetes computacionales:
+                                                    {!! Form::text('ManejoPaquetes', '', ['placeholder' => ''.($errors->get('ManejoPaquetes') ? ''.implode(' | ',$errors->get('ManejoPaquetes')) : 'Especificar'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('ManejoPaquetes') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                                 </label>
                                                 {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
                                             {!! Form::close() !!}
@@ -205,50 +209,50 @@
                                     {!! Form::open(['route' => ['egresado.form.modulo2'], 'method' => 'post', 'class' => 'grid grid-cols-4 gap-4 mt-5']) !!}
                                         <label class="pr-10 col-span-2">II.1  Calidad de los docentes: </label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('calidad_docentes', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('calidad_docentes', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('calidad_docentes', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('calidad_docentes', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaCalidad">Muy buena</label></span>{!! Form::radio('calidad_docentes', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaCalidad']) !!}
+                                            <span class="pr-3"><label for="BuenaCalidad">Buena</label></span>{!! Form::radio('calidad_docentes', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaCalidad']) !!}
+                                            <span class="pr-3"><label for="RegularCalidad">Regular</label></span>{!! Form::radio('calidad_docentes', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularCalidad']) !!}
+                                            <span class="pr-3"><label for="MalaCalidad">Mala</label></span>{!! Form::radio('calidad_docentes', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaCalidad']) !!}
                                         </div>
 
                                         <label class="pr-10 col-span-2">II.2  Plan de Estudios: </label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('plan_estudios', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('plan_estudios', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('plan_estudios', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('plan_estudios', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaPlan">Muy buena</label></span>{!! Form::radio('plan_estudios', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaPlan']) !!}
+                                            <span class="pr-3"><label for="BuenaPlan">Buena</label></span>{!! Form::radio('plan_estudios', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaPlan']) !!}
+                                            <span class="pr-3"><label for="RegularPlan">Regular</label></span>{!! Form::radio('plan_estudios', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularPlan']) !!}
+                                            <span class="pr-3"><label for="MalaPlan">Mala</label></span>{!! Form::radio('plan_estudios', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaPlan']) !!}
                                         </div>
 
                                         <label class="pr-10 col-span-2">II.3  Oportunidad de participar en proyectos de investigación y desarrollo:</label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('part_proyectos', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('part_proyectos', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('part_proyectos', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('part_proyectos', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaOpor">Muy buena</label></span>{!! Form::radio('part_proyectos', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaOpor']) !!}
+                                            <span class="pr-3"><label for="BuenaOpor">Buena</label></span>{!! Form::radio('part_proyectos', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaOpor']) !!}
+                                            <span class="pr-3"><label for="RegularOpor">Regular</label></span>{!! Form::radio('part_proyectos', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularOpor']) !!}
+                                            <span class="pr-3"><label for="MalaOpor">Mala</label></span>{!! Form::radio('part_proyectos', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaOpor']) !!}
                                         </div>
 
                                         <label class="pr-10 col-span-2">II.4   Énfasis que se le prestaba a la investigación dentro del proceso de enseñanza: </label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('enfasis_investigacion', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('enfasis_investigacion', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('enfasis_investigacion', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('enfasis_investigacion', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaEnf">Muy buena</label></span>{!! Form::radio('enfasis_investigacion', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaEnf']) !!}
+                                            <span class="pr-3"><label for="BuenaEnf">Buena</label></span>{!! Form::radio('enfasis_investigacion', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaEnf']) !!}
+                                            <span class="pr-3"><label for="RegularEnf">Regular</label></span>{!! Form::radio('enfasis_investigacion', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularEnf']) !!}
+                                            <span class="pr-3"><label for="MalaEnf">Mala</label></span>{!! Form::radio('enfasis_investigacion', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaEnf']) !!}
                                         </div>
                                         
                                         <label class="pr-10 col-span-2">II.5  Satisfacción con las condiciones de estudio (infraestructura): </label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('satisfaccion_cond', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('satisfaccion_cond', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('satisfaccion_cond', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('satisfaccion_cond', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaSatis">Muy buena</label></span>{!! Form::radio('satisfaccion_cond', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaSatis']) !!}
+                                            <span class="pr-3"><label for="BuenaSatis">Buena</label></span>{!! Form::radio('satisfaccion_cond', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaSatis']) !!}
+                                            <span class="pr-3"><label for="RegularSatis">Regular</label></span>{!! Form::radio('satisfaccion_cond', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularSatis']) !!}
+                                            <span class="pr-3"><label for="MalaSatis">Mala</label></span>{!! Form::radio('satisfaccion_cond', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaSatis']) !!}
                                         </div>
                                         
                                         <label class="pr-10 col-span-2">II.6  Experiencia obtenida a través de la residencia profesional: </label>
                                         <div class="col-span-2">
-                                            <span class="pr-3">Muy buena</span>{!! Form::radio('experiencia_residencia', 'Muy buena', true, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Buena</span>{!! Form::radio('experiencia_residencia', 'Buena', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Regular</span>{!! Form::radio('experiencia_residencia', 'Regular', false, ['class' => 'mr-7']) !!}
-                                            <span class="pr-3">Mala</span>{!! Form::radio('experiencia_residencia', 'Mala', false, ['class' => 'mr-7']) !!}
+                                            <span class="pr-3"><label for="Muy buenaExp">Muy buena</label></span>{!! Form::radio('experiencia_residencia', 'Muy buena', true, ['class' => 'mr-7', 'id' => 'Muy buenaExp']) !!}
+                                            <span class="pr-3"><label for="BuenaExp">Buena</label></span>{!! Form::radio('experiencia_residencia', 'Buena', false, ['class' => 'mr-7', 'id' => 'BuenaExp']) !!}
+                                            <span class="pr-3"><label for="RegularExp">Regular</label></span>{!! Form::radio('experiencia_residencia', 'Regular', false, ['class' => 'mr-7', 'id' => 'RegularExp']) !!}
+                                            <span class="pr-3"><label for="MalaExp">Mala</label></span>{!! Form::radio('experiencia_residencia', 'Mala', false, ['class' => 'mr-7', 'id' => 'MalaExp']) !!}
                                         </div>
                                         {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}
                                     {!! Form::close() !!}
@@ -275,14 +279,14 @@
                                                 <span><label for="Doctorado">Doctorado</label>{!! Form::radio('estudia', 'Doctorado', false, ['class' => 'ml-3', 'onclick' => 'otratexto()', 'id' => 'Doctorado']) !!}</span>
                                                 <span><label for="Idiomas">Idiomas</label>{!! Form::radio('estudia', 'Idiomas', false, ['class' => 'ml-3', 'onclick' => 'otratexto()', 'id' => 'Idiomas']) !!}</span>
                                                 <span class="col-span-2 flex items-center"><label for="Otra">Otra</label>{!! Form::radio('estudia', 'Otra', false, ['class' => 'ml-3 mr-3', 'onclick' => 'otratexto()', 'id' => 'Otra']) !!}
-                                                    {!! Form::text('OtraTexto', '', ['placeholder' => 'Especifique', 'class' => 'hidden px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'id' => 'OtraTexto']) !!}
+                                                    {!! Form::text('OtraTexto', '', ['placeholder' => 'Especifique', 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('OtraTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'hidden border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500'), 'id' => 'OtraTexto']) !!}
                                                 </span>
                                             </div>
                                             <div class="mt-3 grid grid-cols-6">
                                                 <span class="flex items-center">
                                                     Especialidad e Institución:
                                                 </span>
-                                                {!! Form::text('especialidad_inst', '', ['class' => 'col-span-5 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!} <br>
+                                                {!! Form::text('especialidad_inst', '', ['placeholder' => ''.($errors->get('especialidad_inst') ? ''.implode(' | ',$errors->get('especialidad_inst')) : ''), 'class' => 'col-span-5 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('especialidad_inst') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!} 
                                             </div>
                                         </div>
                                         
@@ -302,7 +306,7 @@
                                             <div class="grid grid-cols-7 gap-7">
                                                 <span class="col-span-2"><label for="Medios masivos">Medios masivos de comunicación</label>{!! Form::radio('medio', 'Medios masivos de comunicación', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Medios masivos']) !!}</span>
                                                 <span class="col-span-5 flex items-center"><label for="MedioOtro">Otro</label>{!! Form::radio('medio', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'MedioOtro']) !!}
-                                                {!! Form::text('MedioTexto', '', ['placeholder' => 'Especifique', 'class' => 'hidden w-1/2 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'id' => 'MedioTexto']) !!}</span>
+                                                {!! Form::text('MedioTexto', '', ['placeholder' => 'Especifique', 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-1/2 rounded-md sm:text-sm focus:ring-1 '.($errors->get('MedioTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'hidden border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500'), 'id' => 'MedioTexto']) !!}</span>
                                             </div>
                                         </div>
                                         
@@ -316,7 +320,7 @@
                                                 <span class="col-span-3"><label for="Actitudes y habilidades">Actitudes y habilidades socio-comunicativas (principios y valores)</label>{!! Form::radio('requisitos_contrato', 'Actitudes y habilidades socio-comunicativas (principios y valores)', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Actitudes y habilidades']) !!}</span>
                                                 <span class="col-span-1"><label for="Ninguno">Ninguno</label>{!! Form::radio('requisitos_contrato', 'Ninguno', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Ninguno']) !!}</span>
                                                 <span class="col-span-2 flex items-center"><label for="RequisitoOtro">Otro</label>{!! Form::radio('requisitos_contrato', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'RequisitoOtro']) !!}
-                                                {!! Form::text('RequisitoTexto', '', ['placeholder' => 'Especifique', 'class' => 'hidden px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'id' => 'RequisitoTexto']) !!}</span>
+                                                {!! Form::text('RequisitoTexto', '', ['placeholder' => 'Especifique', 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('RequisitoTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'hidden border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500'), 'id' => 'RequisitoTexto']) !!}</span>
                                             </div>
                                         </div>
                                         
@@ -328,22 +332,22 @@
                                                 <span class="col-span-1"><label for="Alemán">Alemán</label>{!! Form::radio('idiomas', 'Alemán', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Alemán']) !!}</span>
                                                 <span class="col-span-1"><label for="Japonés">Japonés</label>{!! Form::radio('idiomas', 'Japonés', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Japonés']) !!}</span>
                                                 <span class="col-span-2 flex items-center"><label for="IdiomaOtro">Otro</label>{!! Form::radio('idiomas', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'IdiomaOtro']) !!}
-                                                {!! Form::text('IdiomaTexto', '', ['placeholder' => 'Especifique', 'class' => 'hidden px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'id' => 'IdiomaTexto']) !!}</span>
+                                                {!! Form::text('IdiomaTexto', '', ['placeholder' => 'Especifique', 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('IdiomaTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'hidden border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500'), 'id' => 'IdiomaTexto']) !!}</span>
                                             </div>
                                         </div>
                                         
                                         <label class="pr-10 col-span-4">III.6  En qué proporción utiliza en el desempeño de sus actividades laborales cada una de las habilidades del idioma extranjero:</label>
                                         <span class="flex items-center">
-                                            Hablar {!! Form::select('Hablar', ['0' => '0', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '0', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
+                                            Hablar {!! Form::select('Hablar', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
                                         </span>
                                         <span class="flex items-center">
-                                            Escribir {!! Form::select('Escribir', ['0' => '0', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '0', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
+                                            Escribir {!! Form::select('Escribir', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
                                         </span>
                                         <span class="flex items-center">
-                                            Leer {!! Form::select('Leer', ['0' => '0', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '0', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
+                                            Leer {!! Form::select('Leer', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
                                         </span>
                                         <span class="flex items-center">
-                                            Escuchar {!! Form::select('Escuchar', ['0' => '0', '10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '0', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
+                                            Escuchar {!! Form::select('Escuchar', ['10' => '10', '20' => '20', '30' => '30', '40' => '40', '50' => '50', '60' => '60', '70' => '70', '80' => '80', '90' => '90', '100' => '100'], '10', ['class' => 'ml-3 py-2.5 px-0 w-[25%] text-base text-black-800 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer']) !!}
                                         </span>
                                         
                                         <label class="pr-10 col-span-4">III.7  Antigüedad en el empleo:</label>
@@ -384,7 +388,7 @@
                                                 <span class="col-span-1"><label for="Eventual">Eventual</label>{!! Form::radio('condicion_trabajo', 'Eventual', false, ['id' => 'Eventual', 'class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
                                                 <span class="col-span-1"><label for="Contrato">Contrato</label>{!! Form::radio('condicion_trabajo', 'Contrato', false, ['id' => 'Contrato', 'class' => 'mr-7 ml-3', 'onclick' => 'otratexto()']) !!}</span>
                                                 <span class="col-span-2 flex items-center"><label for="CondicionOtro">Otros</label>{!! Form::radio('condicion_trabajo', 'Otra', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'CondicionOtro']) !!}
-                                                {!! Form::text('CondicionTexto', '', ['placeholder' => 'Especifique', 'class' => 'hidden px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'id' => 'CondicionTexto']) !!}</span>
+                                                {!! Form::text('CondicionTexto', '', ['placeholder' => 'Especifique', 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('CondicionTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'hidden border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500'), 'id' => 'CondicionTexto']) !!}</span>
                                             </div>
                                         </div>
                                         
@@ -426,40 +430,39 @@
                                         
                                         <div class="col-span-4 flex items-center">
                                             <span class="w-1/2">Giro o actividad principal de la empresa u organismo:</span>
-                                            {!! Form::text('giro', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                            {!! Form::text('giro', '', ['placeholder' => ''.($errors->get('giro') ? ''.implode(' | ',$errors->get('giro')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('giro') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                         </div>
-                                        
                                         <div class="col-span-4 flex items-center">
                                             <span class="w-[10%]">Razón Social:</span>
-                                            {!! Form::text('razon_social', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}
+                                            {!! Form::text('razon_social', '', ['placeholder' => ''.($errors->get('razon_social') ? ''.implode(' | ',$errors->get('razon_social')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('razon_social') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                         </div>
                                         
                                         <span class="col-span-4 flex items-center">Domicilio:
-                                        {!! Form::text('domicilio', '', ['class' => 'ml-3 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500', 'placeholder' => 'Calle Número Colonia C.P.']) !!}</span>
+                                        {!! Form::text('domicilio', '', ['placeholder' => ''.($errors->get('domicilio') ? ''.implode(' | ',$errors->get('domicilio')) : 'Calle Número Colonia C.P.'), 'class' => 'ml-3 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('domicilio') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                         
                                         <div class="col-span-4">
                                             <div class="grid grid-cols-3">
                                                 <span class="col-span-1 flex items-center">Ciudad:
-                                                {!! Form::text('ciudad', '', ['class' => 'ml-3 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                                {!! Form::text('ciudad', '', ['placeholder' => ''.($errors->get('ciudad') ? ''.implode(' | ',$errors->get('ciudad')) : ''), 'class' => 'ml-3 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('ciudad') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                                 
                                                 <span class="col-span-1 flex items-center ml-5">Municipio:
-                                                {!! Form::text('municipio', '', ['class' => 'ml-3 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                                {!! Form::text('municipio', '', ['placeholder' => ''.($errors->get('municipio') ? ''.implode(' | ',$errors->get('municipio')) : ''), 'class' => 'ml-3 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('municipio') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                                 
                                                 <span class="col-span-1 flex items-center ml-5">Estado:
-                                                {!! Form::text('estado', '', ['class' => 'ml-3 px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                                {!! Form::text('estado', '', ['placeholder' => ''.($errors->get('estado') ? ''.implode(' | ',$errors->get('estado')) : ''), 'class' => 'ml-3 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('estado') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                             </div>
                                         </div>
                                         
                                         <span class="col-span-1 self-center items-center">Contactos:</span>
-                                        <span class="col-span-1">{!! Form::number('telefono', '', ['placeholder' => 'Telefono', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
-                                        <span class="col-span-1">{!! Form::number('fax', '', ['placeholder' => 'Fax', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
-                                        <span class="col-span-1">{!! Form::text('email', '', ['placeholder' => 'E-mail', 'class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                        <span class="col-span-1">{!! Form::number('telefono', '', ['placeholder' => ''.($errors->get('estelefonotado') ? ''.implode(' | ',$errors->get('estelefonotado')) : 'Telefono'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('telefono') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
+                                        <span class="col-span-1">{!! Form::number('fax', '', ['placeholder' => ''.($errors->get('fax') ? ''.implode(' | ',$errors->get('fax')) : 'Fax'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('fax') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
+                                        <span class="col-span-1">{!! Form::text('email', '', ['placeholder' => ''.($errors->get('email') ? ''.implode(' | ',$errors->get('email')) : 'Ej. jhon@gmail.com'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('email') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                         
                                         <span class="col-span-4 flex items-center"><span class="w-[10%]">Página Web:</span>
-                                        {!! Form::text('pagina_web', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                        {!! Form::text('pagina_web', '', ['placeholder' => ''.($errors->get('pagina_web') ? ''.implode(' | ',$errors->get('pagina_web')) : ''), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('pagina_web') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
                                         
                                         <span class="col-span-4 flex items-center"><span class="w-[30%]">Nombre y Puesto del Jefe Inmediato:</span>
-                                        {!! Form::text('jefe', '', ['class' => 'px-3 py-2 bg-white border shadow-sm border-slate-200 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1 contrast-more:border-slate-400 contrast-more:placeholder-slate-500']) !!}</span>
+                                        {!! Form::text('jefe', '', ['placeholder' => ''.($errors->get('jefe') ? ''.implode(' | ',$errors->get('jefe')) : 'Ej. CMO Juan Hernandez Perez'), 'class' => 'px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('jefe') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}</span>
     
                                         <label class="pr-10 col-span-4">III.13  Sector Económico de la Empresa u Organización:</label>
                                         <span class="col-span-4">SECTOR PRIMARIO:</span>
@@ -503,24 +506,32 @@
                                     {!! Form::open(['route' => ['egresado.form.modulo4'], 'method' => 'post', 'class' => 'mt-5']) !!}
                                     <div class="grid grid-cols-4 gap-4">
                                         <label class="pr-10 col-span-4">IV.1  Eficiencia para realizar las actividades laborales, en relación con su formación académica: </label>
-                                        <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', true, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Eficiente{!! Form::radio('eficiencia', 'Eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Poco eficiente{!! Form::radio('eficiencia', 'Poco eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Muy eficiente{!! Form::radio('eficiencia', 'Muy eficiente', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <span class="col-span-1"><label for="Muy eficiente">Muy eficiente</label>{!! Form::radio('eficiencia', 'Muy eficiente', true, ['class' => 'mr-7 ml-3', 'id' => 'Muy eficiente']) !!}</span>
+                                        <span class="col-span-1"><label for="Eficiente">Eficiente</label>{!! Form::radio('eficiencia', 'Eficiente', false, ['class' => 'mr-7 ml-3', 'id' => 'Eficiente']) !!}</span>
+                                        <span class="col-span-1"><label for="Poco eficiente">Poco eficiente</label>{!! Form::radio('eficiencia', 'Poco eficiente', false, ['class' => 'mr-7 ml-3', 'id' => 'Poco eficiente']) !!}</span>
+                                        <span class="col-span-1"><label for="Deficiente">Deficiente</label>{!! Form::radio('eficiencia', 'Deficiente', false, ['class' => 'mr-7 ml-3', 'id' => 'Deficiente']) !!}</span>
                                         
                                         <label class="pr-10 col-span-4">IV.2  Cómo califica su formación académica con respecto a su desempeño laboral:</label>
-                                        <span class="col-span-1">Excelente{!! Form::radio('formacion_academica', 'Excelente', true, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Bueno{!! Form::radio('formacion_academica', 'Bueno', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Regular{!! Form::radio('formacion_academica', 'Regular', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Malo{!! Form::radio('formacion_academica', 'Malo', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Pésimo{!! Form::radio('formacion_academica', 'Pésimo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <div class="col-span-4">
+                                            <div class="grid grid-cols-5 gap-5">
+                                                <span><label for="Excelente1">Excelente</label>{!! Form::radio('formacion_academica', 'Excelente', true, ['class' => 'mr-7 ml-3', 'id' => 'Excelente1']) !!}</span>
+                                                <span><label for="Bueno1">Bueno</label>{!! Form::radio('formacion_academica', 'Bueno', false, ['class' => 'mr-7 ml-3', 'id' => 'Bueno1']) !!}</span>
+                                                <span><label for="Regular1">Regular</label>{!! Form::radio('formacion_academica', 'Regular', false, ['class' => 'mr-7 ml-3', 'id' => 'Regular1']) !!}</span>
+                                                <span><label for="Malo1">Malo</label>{!! Form::radio('formacion_academica', 'Malo', false, ['class' => 'mr-7 ml-3', 'id' => 'Malo1']) !!}</span>
+                                                <span><label for="Pésimo1">Pésimo</label>{!! Form::radio('formacion_academica', 'Pésimo', false, ['class' => 'mr-7 ml-3', 'id' => 'Pésimo1']) !!}</span>
+                                            </div>
+                                        </div>
                                         
                                         <label class="pr-10 col-span-4">IV.3  Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional:</label>
-                                        <span class="col-span-1">Excelente{!! Form::radio('utilidad_residencias', 'Excelente', true, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Bueno{!! Form::radio('utilidad_residencias', 'Bueno', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Regular{!! Form::radio('utilidad_residencias', 'Regular', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Malo{!! Form::radio('utilidad_residencias', 'Malo', false, ['class' => 'mr-7 ml-3']) !!}</span>
-                                        <span class="col-span-1">Pésimo{!! Form::radio('utilidad_residencias', 'Pésimo', false, ['class' => 'mr-7 ml-3']) !!}</span>
+                                        <div class="col-span-4">
+                                            <div class="grid grid-cols-5 gap-5">
+                                                <span><label for="Excelente2">Excelente</label>{!! Form::radio('utilidad_residencias', 'Excelente', true, ['class' => 'mr-7 ml-3', 'id' => 'Excelente2']) !!}</span>
+                                                <span><label for="Bueno2">Bueno</label>{!! Form::radio('utilidad_residencias', 'Bueno', false, ['class' => 'mr-7 ml-3', 'id' => 'Bueno2']) !!}</span>
+                                                <span><label for="Regular2">Regular</label>{!! Form::radio('utilidad_residencias', 'Regular', false, ['class' => 'mr-7 ml-3', 'id' => 'Regular2']) !!}</span>
+                                                <span><label for="Malo2">Malo</label>{!! Form::radio('utilidad_residencias', 'Malo', false, ['class' => 'mr-7 ml-3', 'id' => 'Malo2']) !!}</span>
+                                                <span><label for="Pésimo2">Pésimo</label>{!! Form::radio('utilidad_residencias', 'Pésimo', false, ['class' => 'mr-7 ml-3', 'id' => 'Pésimo2']) !!}</span>
+                                            </div>
+                                        </div>
 
                                         <label class="pr-10 col-span-4">IV.4  Aspectos que valora la empresa u organismo para la contratación de egresados:</label>
                                         <div></div>
@@ -632,8 +643,8 @@
                                             </div>
                                         </div>
                                         <div class="grid grid-cols-4 gap-4">
-                                            <span class="col-span-3 h-10 flex items-center">10. Otros.
-                                                {!! Form::text('AspectoTexto', '', ['class' => 'h-6']) !!}
+                                            <span class="col-span-3 h-10 flex items-center">10. Otros 
+                                                {!! Form::text('AspectoTexto', '', ['placeholder' => ''.($errors->get('AspectoTexto') ? ''.implode(' | ',$errors->get('AspectoTexto')) : ''), 'class' => 'ml-3 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-1/2 rounded-md sm:text-sm focus:ring-1 '.($errors->get('AspectoTexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                             </span>
                                             <div class="grid grid-cols-5 gap-5">
                                                 {!! Form::radio('otros', '1', true, ['class' => 'place-self-center']) !!}
@@ -660,29 +671,29 @@
                                         <label class="pr-10 col-span-5">V.1  ACTUALIZACIÓN DE CONOCIMIENTOS:</label>
                                         <span class="col-span-2">Le gustaría tomar cursos de actualización:</span>
                                         <span class="col-span-1">
-                                            Si
-                                            {!! Form::radio('actualizacion', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
-                                            No
-                                            {!! Form::radio('actualizacion', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                            <label for="Si1">Si</label>
+                                            {!! Form::radio('actualizacion', 'Si', true, ['class' => 'mr-7 ml-3', 'id' => 'Si1']) !!}
+                                            <label for="No1">No</label>
+                                            {!! Form::radio('actualizacion', 'No', false, ['class' => 'mr-7 ml-3', 'id' => 'No1']) !!}
                                         </span>
                                         <span class="col-span-2">
                                             <div class="grid grid-cols-5 gap-5 flex items-center">
                                                 ¿Cuáles?:
-                                                {!! Form::text('actualizaciontexto', '', ['class' => 'col-span-4']) !!}
+                                                {!! Form::text('actualizaciontexto', '', ['placeholder' => ''.($errors->get('actualizaciontexto') ? ''.implode(' | ',$errors->get('actualizaciontexto')) : ''), 'class' => 'col-span-4 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('actualizaciontexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                             </div>
                                         </span>
 
                                         <span class="col-span-2">Le gustaría tomar algún Posgrado:</span>
                                         <span class="col-span-1">
-                                            Si
-                                            {!! Form::radio('posgrado', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
-                                            No
-                                            {!! Form::radio('posgrado', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                            <label for="Si2">Si</label>
+                                            {!! Form::radio('posgrado', 'Si', true, ['class' => 'mr-7 ml-3', 'id' => 'Si2']) !!}
+                                            <label for="No2">No</label>
+                                            {!! Form::radio('posgrado', 'No', false, ['class' => 'mr-7 ml-3', 'id' => 'No2']) !!}
                                         </span>
                                         <span class="col-span-2">
                                             <div class="grid grid-cols-5 gap-5 flex items-center">
                                                 ¿Cuáles?:
-                                                {!! Form::text('posgradotexto', '', ['class' => 'col-span-4']) !!}
+                                                {!! Form::text('posgradotexto', '', ['placeholder' => ''.($errors->get('posgradotexto') ? ''.implode(' | ',$errors->get('posgradotexto')) : ''), 'class' => 'col-span-4 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('posgradotexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                             </div>
                                         </span>
                                     </div>
@@ -701,37 +712,37 @@
                                     <div class="grid grid-cols-5 gap-5  flex items-center">
                                         <span class="col-span-2">VI.1  Pertenece a organizaciones sociales:</span>
                                         <span class="col-span-1">
-                                            Si
-                                            {!! Form::radio('org_sociales', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
-                                            No
-                                            {!! Form::radio('org_sociales', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                            <label for="Si3">Si</label>
+                                            {!! Form::radio('org_sociales', 'Si', true, ['class' => 'mr-7 ml-3', 'id' => 'Si3']) !!}
+                                            <label for="No3">No</label>
+                                            {!! Form::radio('org_sociales', 'No', false, ['class' => 'mr-7 ml-3', 'id' => 'No3']) !!}
                                         </span>
                                         <span class="col-span-2">
                                             <div class="grid grid-cols-5 gap-5 flex items-center">
                                                 ¿Cuáles?:
-                                                {!! Form::text('org_socialestexto', '', ['class' => 'col-span-4']) !!}
+                                                {!! Form::text('org_socialestexto', '', ['placeholder' => ''.($errors->get('org_socialestexto') ? ''.implode(' | ',$errors->get('org_socialestexto')) : ''), 'class' => 'col-span-4 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('org_socialestexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                             </div>
                                         </span>
                                         <span class="col-span-2">VI.2  Pertenece a organismos de profesionistas:</span>
                                         <span class="col-span-1">
-                                            Si
-                                            {!! Form::radio('org_profesionales', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
-                                            No
-                                            {!! Form::radio('org_profesionales', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                            <label for="Si4">Si</label>
+                                            {!! Form::radio('org_profesionales', 'Si', true, ['class' => 'mr-7 ml-3', 'id' => 'Si4']) !!}
+                                            <label for="No4">No</label>
+                                            {!! Form::radio('org_profesionales', 'No', false, ['class' => 'mr-7 ml-3', 'id' => 'No4']) !!}
                                         </span>
                                         <span class="col-span-2">
                                             <div class="grid grid-cols-5 gap-5 flex items-center">
                                                 ¿Cuáles?:
-                                                {!! Form::text('org_profesionalestexto', '', ['class' => 'col-span-4']) !!}
+                                                {!! Form::text('org_profesionalestexto', '', ['placeholder' => ''.($errors->get('org_profesionalestexto') ? ''.implode(' | ',$errors->get('org_profesionalestexto')) : ''), 'class' => 'col-span-4 px-3 py-2 bg-white border shadow-sm focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1 '.($errors->get('org_profesionalestexto') ? 'border-red-200 placeholder-red-400 focus:border-red-500 focus:ring-red-500 contrast-more:border-red-400 contrast-more:placeholder-red-500':'border-slate-200 placeholder-slate-400 focus:border-sky-500 focus:ring-sky-500 contrast-more:border-slate-400 contrast-more:placeholder-slate-500')]) !!}
                                             </div>
                                         </span>
 
                                         <span class="col-span-2">VI.3  Pertenece a la asociación de egresados:</span>
                                         <span class="col-span-1">
-                                            Si
-                                            {!! Form::radio('org_egresados', 'Si', true, ['class' => 'mr-7 ml-3']) !!}
-                                            No
-                                            {!! Form::radio('org_egresados', 'No', false, ['class' => 'mr-7 ml-3']) !!}
+                                            <label for="Si5">Si</label>
+                                            {!! Form::radio('org_egresados', 'Si', true, ['class' => 'mr-7 ml-3', 'id' => 'Si5']) !!}
+                                            <label for="No5">No</label>
+                                            {!! Form::radio('org_egresados', 'No', false, ['class' => 'mr-7 ml-3', 'id' => 'No5']) !!}
                                         </span>
                                     </div>
                                     {!! Form::submit('Siguiente', ['class' => 'bg-sky-500 hover:bg-sky-700 px-5 py-2 text-sm leading-5 rounded-full font-semibold text-white mt-5 ml-5']) !!}

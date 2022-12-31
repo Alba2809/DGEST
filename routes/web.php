@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
 //cambiar a validación de auth
 
-Route::middleware('can:egresado.form.index')->group(function (){
+Route::middleware('can:egresado.form')->group(function (){
     Route::post('/egresado/modulo1', [EgresadoController::class, 'modulo1'])->middleware(['auth', 'verified'])->name('egresado.form.modulo1');
     Route::post('/egresado/modulo2', [EgresadoController::class, 'modulo2'])->middleware(['auth', 'verified'])->name('egresado.form.modulo2');
     Route::post('/egresado/modulo3', [EgresadoController::class, 'modulo3'])->middleware(['auth', 'verified'])->name('egresado.form.modulo3');
