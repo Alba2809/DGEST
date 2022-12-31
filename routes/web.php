@@ -5,6 +5,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\JefeController;
 use App\Http\Controllers\MuestraController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResultadoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 

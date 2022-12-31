@@ -321,7 +321,7 @@ class EgresadoController extends Controller
         //se tomará el correo como el indicador de que es una empresa nueva
         $empresa_existe = Empresa::where('email', $modulo->email)->first();
 
-        if(!$empresa_existe){
+        if(!$empresa_existe && ($request->actividad == 'Trabaja' || $request->actividad == 'Estudia y Trabaja')){
             $empresa = new Empresa();
             $empresa->email = $modulo->email;
             $empresa->nombre = $modulo->jefe;
