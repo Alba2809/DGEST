@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\MuestraChart;
+use App\Exports\Modulo1Export;
 use App\Mail\EgresadosMailable;
 use App\Models\Egresado;
 use App\Models\Empresa;
@@ -24,6 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Expr\Array_;
 
 class MuestraController extends Controller
@@ -418,4 +420,11 @@ class MuestraController extends Controller
         return back()->with('success', 'Se ha actualizado la muestra y enviado los correos exitosamente.');
     }
 
+    //fase prueba
+    public function imprimir(Request $request){
+        $egresados = MuestraEgresado::select('no_control')
+            ->where('id_muestra', $request->muestra)->get();
+        //dd(array_values($egresados->toArray())->no_control);
+        return (new Modulo1Export($egresados))->download('modulo1.xlsx');
+    }
 }

@@ -23,7 +23,6 @@ Route::middleware('auth')->group(function () {
     
 });
 
-//cambiar a validación de auth
 
 Route::middleware('can:egresado.form')->group(function (){
     Route::post('/egresado/modulo1', [EgresadoController::class, 'modulo1'])->middleware(['auth', 'verified'])->name('egresado.form.modulo1');
@@ -51,6 +50,7 @@ Route::middleware('can:jefe.correo')->group(function (){
 });
 
 Route::middleware('can:jefe.muestra')->group(function (){
+    //Route::post('muestras/exportar', [MuestraController::class, 'imprimir'])->middleware(['auth', 'verified'])->name('jefe.muestra.imprimir');
     Route::resource('muestras', MuestraController::class)->middleware(['auth', 'verified'])->only(['index', 'show', 'edit'])->names('jefe.muestra');
 });
 
@@ -58,5 +58,7 @@ Route::middleware('can:admin.usuarios')->group(function (){
     Route::resource('usuarios', UserController::class)->middleware(['auth', 'verified'])->names('admin.usuarios');
 });
 
-
+Route::fallback( function () {
+    return back();
+} );
 require __DIR__.'/auth.php';
