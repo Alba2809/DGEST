@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -45,7 +46,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user)
     {
         //
     }
@@ -58,7 +59,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id', $id)->with('roles')->first();
+        $roles = Role::all();
+
+        return view('usuarios.edit', compact('user', 'roles'));
     }
 
     /**
@@ -70,7 +74,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('id', $id)->first();
+        $user->roles()->sync($request->roles);
+
+        return back()->withInput()->with('success', 'Se actualizaron los roles del usuario exitosamente.');
     }
 
     /**

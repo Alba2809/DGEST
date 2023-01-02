@@ -32,15 +32,22 @@ class MuestraController extends Controller
 {
     public function index()
     {
-        $muestras = Muestra::all();
-
         $jefe = Jefe::where('email', Auth::user()->email)->first();
+        
+        $muestras = Muestra::where('carrera', $jefe->carrera)->get();
 
         return view('muestras.index', compact('muestras', 'jefe'));
     }
 
     public function show(Muestra $muestra)
     {
+        $jefe = Jefe::where('email', Auth::user()->email)->first();
+        $disponibles = Muestra::where('carrera', $jefe->carrera)->get();
+
+        if(!$disponibles->contains('id', $muestra->id)){
+            abort(404);
+        }
+
         $egresados = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
             ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
             ->where('id_muestra', $muestra->id)
@@ -59,7 +66,7 @@ class MuestraController extends Controller
 
         $dias_transcurridos = $fecha_actual->diffInDays($fecha_inicial);
 
-        $total = Egresado::where('anio_egreso', $muestra->anio)->count();
+        $total = Egresado::where('anio_egreso', $muestra->anio)->where('carrera', $jefe->carrera)->count();
         
         /* 
             Apartado de graficas generales de progreso de egresados y emrpesas

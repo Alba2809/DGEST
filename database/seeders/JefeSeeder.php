@@ -30,5 +30,35 @@ class JefeSeeder extends Seeder
             'nombre' => 'Pedro Fernández Espinoza',
             'email' => 'gestion_dgest@itsx.com'
         ]);
+        Jefe::create([
+            'carrera' => 'Industrial',
+            'nombre' => 'Roberto Mora Fernandez',
+            'email' => 'industrial_dgest@itsx.com'
+        ]);
+        Jefe::create([
+            'carrera' => 'Bioquímica',
+            'nombre' => 'Lucia Bello Zamora',
+            'email' => 'bioquimica_dgest@itsx.com'
+        ]);
+        Jefe::create([
+            'carrera' => 'Electromecánica',
+            'nombre' => 'Martin Cortina Peralta',
+            'email' => 'electromecanica_dgest@itsx.com'
+        ]);
+        Jefe::create([
+            'carrera' => 'Industrias Alimentarias',
+            'nombre' => 'Josefina Carvajal Colorado',
+            'email' => 'alimentarias_dgest@itsx.com'
+        ]);
+        Jefe::create([
+            'carrera' => 'Civil',
+            'nombre' => 'Jorge Mesa Quiroz',
+            'email' => 'civil_dgest@itsx.com'
+        ]);
+        Jefe::create([
+            'carrera' => 'Mecatrónica',
+            'nombre' => 'Alejandro Bravo Rosales',
+            'email' => 'mecatronica_dgest@itsx.com'
+        ]);
     }
 }

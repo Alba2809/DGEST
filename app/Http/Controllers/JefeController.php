@@ -52,20 +52,25 @@ class JefeController extends Controller
     }
 
     public function aleatorios(Request $request){
+        $jefe = Jefe::where('email', Auth::user()->email)->first();
         $anioSelec = $request->get('AnioEgreso');
         $porcSelec = $request->get('PorcentajeM');
 
-        $total = Egresado::where('anio_egreso', $anioSelec)->count(); // 100%
+        $total = Egresado::where('carrera', $jefe->carrera)
+            ->where('anio_egreso', $anioSelec)->count(); // 100%
 
         $numEgresados = ((int)$porcSelec * (int)$total) / 100;
 
-        $egresadosSelc = Egresado::where('anio_egreso', $anioSelec)
+        $egresadosSelc = Egresado::where('carrera', $jefe->carrera)
+            ->where('anio_egreso', $anioSelec)
             ->where('form_hecho', 0)
             ->orderByRaw('RAND()')
             ->limit((int)$numEgresados)
             ->get();
+
+        $warning = Muestra::where('carrera', $jefe->carrera)->where('anio', $anioSelec)->first();
         
-        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc)->with('anioSelec', $anioSelec)->with('porcSelec', $porcSelec)->with('numEgresados', $egresadosSelc->count());
+        return redirect()->route('jefe.correo.index')->withInput()->with('total', $total)->with('egresados', $egresadosSelc)->with('anioSelec', $anioSelec)->with('porcSelec', $porcSelec)->with('numEgresados', $egresadosSelc->count())->with('warning', $warning);
     }
 
     public function enviar(Request $request){
