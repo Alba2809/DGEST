@@ -179,8 +179,8 @@
                                                 </label>
                                                 <label class="col-span-1">
                                                     <span class="pr-2">Titulado(a):</span> <br>
-                                                    <span class="pr-3">Si</span>{!! Form::radio('Titulado', 'Si', true, ['class' => 'mr-7']) !!} 
-                                                    <span class="pr-3">No</span>{!! Form::radio('Titulado', 'No', false, ['']) !!}
+                                                    <span class="pr-3"><label for="SiT">Si</label></span>{!! Form::radio('Titulado', 'Si', true, ['class' => 'mr-7', 'id' => 'SiT']) !!} 
+                                                    <span class="pr-3"><label for="NoT">No</label></span>{!! Form::radio('Titulado', 'No', false, ['id' => 'NoT']) !!}
                                                 </label>
                                                 <span class="col-span-4">
                                                     Porcentaje de dominio de idioma extranjero:
@@ -312,7 +312,7 @@
                                         
                                         <label class="pr-10 col-span-4">III.4  Requisitos de contratación:</label>
                                         <span class="col-span-1"><label for="Competencias laborales">Competencias laborales</label>{!! Form::radio('requisitos_contrato', 'Competencias laborales', true, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Competencias laborales']) !!}</span>
-                                        <span class="col-span-1"><label for="Título Profesiona">Título Profesiona</label>{!! Form::radio('requisitos_contrato', 'Título Profesiona', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Título Profesiona']) !!}</span>
+                                        <span class="col-span-1"><label for="Título Profesional">Título Profesional</label>{!! Form::radio('requisitos_contrato', 'Título Profesional', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Título Profesiona']) !!}</span>
                                         <span class="col-span-1"><label for="Examen de selección">Examen de selección</label>{!! Form::radio('requisitos_contrato', 'Examen de selección', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Examen de selección']) !!}</span>
                                         <span class="col-span-1"><label for="Idioma Extranjero">Idioma Extranjero</label>{!! Form::radio('requisitos_contrato', 'Idioma Extranjero', false, ['class' => 'mr-7 ml-3', 'onclick' => 'otratexto()', 'id' => 'Idioma Extranjero']) !!}</span>
                                         <div class="col-span-4">

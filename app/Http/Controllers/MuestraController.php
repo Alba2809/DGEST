@@ -51,6 +51,7 @@ class MuestraController extends Controller
         $egresados = MuestraEgresado::select('muestras_egresados.*', 'egresados.form_hecho')
             ->join('egresados','muestras_egresados.no_control','=','egresados.no_control_egresado')
             ->where('id_muestra', $muestra->id)
+            ->distinct()
             ->get();
         
         $respuestas = MuestraEgresado::where('id_muestra', $muestra->id)->whereNotNull('formulario')->count();
@@ -321,10 +322,10 @@ class MuestraController extends Controller
             $empresa_charts->push($empresa_org);
 
             //modulo A - actividad_economica
-            $consulta = ModuloAEmpresa::select('actividad_economica', DB::raw('count(actividad_economica) as total'))
+            $consulta = ModuloBEmpresa::select('no_profesionistas', DB::raw('count(no_profesionistas) as total'))
                 ->whereIn('email_empresa', $empresa_emails)
-                ->groupBy('actividad_economica')
-                ->pluck('total', 'actividad_economica')->all();
+                ->groupBy('no_profesionistas')
+                ->pluck('total', 'no_profesionistas')->all();
             for ($i=0; $i<=count($consulta); $i++) {
                 $colores = [];
                 $colores[] = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6);
@@ -332,7 +333,7 @@ class MuestraController extends Controller
             $empresa_eco = new MuestraChart;
             $empresa_eco->labels(array_keys($consulta));
             $empresa_eco->dataset('', 'bar', array_values($consulta))->backgroundColor($colores);
-            $empresa_eco->title('Actividad económica de las empresas');
+            $empresa_eco->title('Número de profesionista de la empresa');
             $empresa_charts->push($empresa_eco);
         }
 
@@ -350,6 +351,7 @@ class MuestraController extends Controller
         /**
          * Se borran los usuarios de los egresados viejos.
          */
+        $jefe = Jefe::where('email', Auth::user()->email)->first();
         $egresados_viejos = MuestraEgresado::where('id_muestra', $muestra->id)->whereNull('formulario')->get(); //Egresados que no ha contestado al formulario
         
         $lista_noControl = collect([]);
@@ -357,7 +359,9 @@ class MuestraController extends Controller
             $lista_noControl->push($egresado->no_control);
         }
 
-        $emails_viejos = Egresado::whereIn('no_control_egresado', $lista_noControl)->get();
+        $emails_viejos = Egresado::whereIn('no_control_egresado', $lista_noControl)
+            ->where('carrera', $jefe->carrera)
+            ->get();
         foreach ($emails_viejos as $email) {
             $user = new User();
             $user = User::where('email', $email->email)->first();
@@ -375,6 +379,7 @@ class MuestraController extends Controller
 
         $egresadosSelc = Egresado::where('anio_egreso', $muestra->anio)
             ->where('form_hecho', 0)
+            ->where('carrera', $jefe->carrera)
             ->orderByRaw('RAND()')
             ->limit((int)$total)
             ->get();
